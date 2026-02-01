@@ -470,6 +470,324 @@ const ContactPage = () => {
   );
 };
 
+// City Template Page
+const CityTemplatePage = () => {
+  return (
+    <div data-testid="city-template-page">
+      <Header />
+      
+      {/* City Hero Section */}
+      <div className="city-template-hero" data-testid="city-template-hero">
+        <div className="city-template-image-placeholder" data-testid="hero-image-placeholder">
+          <span className="placeholder-text">City Image Here</span>
+        </div>
+        <div className="city-template-overlay">
+          <h1 className="city-template-title" data-testid="city-template-title">City Name Here</h1>
+          <p className="city-template-subtitle">Complete travel guide for this city</p>
+        </div>
+      </div>
+
+      {/* About the City */}
+      <section className="template-section">
+        <div className="container">
+          <h2 className="section-title">About This City</h2>
+          <div className="template-content-box" data-testid="about-content">
+            <p className="template-placeholder-text">
+              [Placeholder paragraph about the city. This will be replaced with actual city information, 
+              history, culture, and general overview. Include what makes this city special and unique.]
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Places to Visit */}
+      <section className="template-section gray-bg">
+        <div className="container">
+          <h2 className="section-title">Places to Visit</h2>
+          <div className="template-places-grid" data-testid="places-grid">
+            <div className="template-place-card" data-testid="place-card-1">
+              <div className="template-place-image">
+                <span className="placeholder-text-small">Image</span>
+              </div>
+              <div className="template-place-content">
+                <h3 className="template-place-name">Place Name 1</h3>
+                <p className="template-place-description">Short description of the place goes here</p>
+                <span className="budget-tag budget-free" data-testid="budget-tag-1">Free</span>
+              </div>
+            </div>
+            
+            <div className="template-place-card" data-testid="place-card-2">
+              <div className="template-place-image">
+                <span className="placeholder-text-small">Image</span>
+              </div>
+              <div className="template-place-content">
+                <h3 className="template-place-name">Place Name 2</h3>
+                <p className="template-place-description">Short description of the place goes here</p>
+                <span className="budget-tag budget-cheap" data-testid="budget-tag-2">Cheap</span>
+              </div>
+            </div>
+            
+            <div className="template-place-card" data-testid="place-card-3">
+              <div className="template-place-image">
+                <span className="placeholder-text-small">Image</span>
+              </div>
+              <div className="template-place-content">
+                <h3 className="template-place-name">Place Name 3</h3>
+                <p className="template-place-description">Short description of the place goes here</p>
+                <span className="budget-tag budget-moderate" data-testid="budget-tag-3">Moderate</span>
+              </div>
+            </div>
+            
+            <div className="template-place-card" data-testid="place-card-4">
+              <div className="template-place-image">
+                <span className="placeholder-text-small">Image</span>
+              </div>
+              <div className="template-place-content">
+                <h3 className="template-place-name">Place Name 4</h3>
+                <p className="template-place-description">Short description of the place goes here</p>
+                <span className="budget-tag budget-cheap" data-testid="budget-tag-4">Cheap</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Food & Cafes */}
+      <section className="template-section">
+        <div className="container">
+          <h2 className="section-title">Food & Cafes</h2>
+          <div className="template-list" data-testid="food-list">
+            <div className="template-list-item" data-testid="food-item-1">
+              <h3 className="template-list-title">Food Place Name 1</h3>
+              <p className="template-list-description">Description of the food or cafe</p>
+            </div>
+            <div className="template-list-item" data-testid="food-item-2">
+              <h3 className="template-list-title">Food Place Name 2</h3>
+              <p className="template-list-description">Description of the food or cafe</p>
+            </div>
+            <div className="template-list-item" data-testid="food-item-3">
+              <h3 className="template-list-title">Food Place Name 3</h3>
+              <p className="template-list-description">Description of the food or cafe</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Budget Stays */}
+      <section className="template-section gray-bg">
+        <div className="container">
+          <h2 className="section-title">Budget-Friendly Stays</h2>
+          <div className="template-stays-grid" data-testid="stays-grid">
+            <div className="template-stay-card" data-testid="stay-card-1">
+              <h3 className="template-stay-name">Stay Name 1</h3>
+              <p className="template-stay-budget">₹500 - ₹1000 per night</p>
+              <p className="template-stay-description">Brief description of the stay</p>
+            </div>
+            <div className="template-stay-card" data-testid="stay-card-2">
+              <h3 className="template-stay-name">Stay Name 2</h3>
+              <p className="template-stay-budget">₹1000 - ₹2000 per night</p>
+              <p className="template-stay-description">Brief description of the stay</p>
+            </div>
+            <div className="template-stay-card" data-testid="stay-card-3">
+              <h3 className="template-stay-name">Stay Name 3</h3>
+              <p className="template-stay-budget">₹2000 - ₹3000 per night</p>
+              <p className="template-stay-description">Brief description of the stay</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Simple Itinerary */}
+      <section className="template-section">
+        <div className="container">
+          <h2 className="section-title">Suggested Itinerary</h2>
+          <div className="template-itinerary" data-testid="itinerary">
+            <div className="template-itinerary-day" data-testid="day-1">
+              <div className="template-day-number">Day 1</div>
+              <div className="template-day-content">
+                <h3 className="template-day-title">Day 1 Activities</h3>
+                <p className="template-day-description">
+                  [Placeholder for day 1 itinerary. Add activities, places to visit, and timing suggestions.]
+                </p>
+              </div>
+            </div>
+            
+            <div className="template-itinerary-day" data-testid="day-2">
+              <div className="template-day-number">Day 2</div>
+              <div className="template-day-content">
+                <h3 className="template-day-title">Day 2 Activities</h3>
+                <p className="template-day-description">
+                  [Placeholder for day 2 itinerary. Add activities, places to visit, and timing suggestions.]
+                </p>
+              </div>
+            </div>
+            
+            <div className="template-itinerary-day" data-testid="day-3">
+              <div className="template-day-number">Day 3</div>
+              <div className="template-day-content">
+                <h3 className="template-day-title">Day 3 Activities</h3>
+                <p className="template-day-description">
+                  [Placeholder for day 3 itinerary. Add activities, places to visit, and timing suggestions.]
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Map Section */}
+      <section className="template-section gray-bg">
+        <div className="container">
+          <h2 className="section-title">City Map</h2>
+          <div className="template-map-placeholder" data-testid="map-placeholder">
+            <p className="template-map-text">Map will be added here later</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section className="template-section template-cta">
+        <div className="container">
+          <div className="cta-content" data-testid="cta-section">
+            <h2 className="cta-title">Know a place in this city?</h2>
+            <p className="cta-description">Help other travelers discover hidden gems</p>
+            <Link to="/add-place">
+              <button className="cta-button" data-testid="add-place-button">Add a Place</button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
+
+// Add a Place Page
+const AddPlacePage = () => {
+  return (
+    <div data-testid="add-place-page">
+      <Header />
+      
+      <div className="page-hero" data-testid="add-place-hero">
+        <h1 className="page-title">Add a Place to Help Other Travelers</h1>
+        <p className="page-subtitle">Share a place you visited so others can discover it too.</p>
+      </div>
+
+      <section className="page-section">
+        <div className="container">
+          <div className="add-place-form-container">
+            <form className="add-place-form" data-testid="add-place-form">
+              
+              {/* What are you adding? */}
+              <div className="form-section" data-testid="form-section-type">
+                <h3 className="form-section-title">What are you adding?</h3>
+                <div className="radio-group">
+                  <label className="radio-label" data-testid="type-place">
+                    <input type="radio" name="place-type" className="radio-input" />
+                    <span className="radio-text">Place to Visit</span>
+                  </label>
+                  <label className="radio-label" data-testid="type-food">
+                    <input type="radio" name="place-type" className="radio-input" />
+                    <span className="radio-text">Food / Cafe</span>
+                  </label>
+                  <label className="radio-label" data-testid="type-stay">
+                    <input type="radio" name="place-type" className="radio-input" />
+                    <span className="radio-text">Budget Stay</span>
+                  </label>
+                  <label className="radio-label" data-testid="type-experience">
+                    <input type="radio" name="place-type" className="radio-input" />
+                    <span className="radio-text">Experience</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* Select City */}
+              <div className="form-section" data-testid="form-section-city">
+                <h3 className="form-section-title">Select City</h3>
+                <select className="form-select" data-testid="city-select">
+                  <option value="">Choose a city...</option>
+                  <option value="rishikesh">Rishikesh</option>
+                  <option value="goa">Goa</option>
+                  <option value="manali">Manali</option>
+                  <option value="jaipur">Jaipur</option>
+                  <option value="udaipur">Udaipur</option>
+                </select>
+              </div>
+
+              {/* Place Name */}
+              <div className="form-section" data-testid="form-section-name">
+                <h3 className="form-section-title">Place Name</h3>
+                <input 
+                  type="text" 
+                  className="form-input" 
+                  placeholder="Enter the name of the place" 
+                  data-testid="place-name-input"
+                />
+              </div>
+
+              {/* Location */}
+              <div className="form-section" data-testid="form-section-location">
+                <h3 className="form-section-title">Location</h3>
+                <div className="location-placeholder" data-testid="location-placeholder">
+                  <p className="location-placeholder-text">Map selection will be added later</p>
+                </div>
+              </div>
+
+              {/* Description */}
+              <div className="form-section" data-testid="form-section-description">
+                <h3 className="form-section-title">Description</h3>
+                <textarea 
+                  className="form-textarea" 
+                  rows="6" 
+                  placeholder="Tell us about this place..." 
+                  data-testid="description-textarea"
+                ></textarea>
+              </div>
+
+              {/* Budget Type */}
+              <div className="form-section" data-testid="form-section-budget">
+                <h3 className="form-section-title">Budget Type</h3>
+                <div className="radio-group radio-group-horizontal">
+                  <label className="radio-label" data-testid="budget-free">
+                    <input type="radio" name="budget-type" className="radio-input" />
+                    <span className="radio-text">Free</span>
+                  </label>
+                  <label className="radio-label" data-testid="budget-cheap">
+                    <input type="radio" name="budget-type" className="radio-input" />
+                    <span className="radio-text">Cheap</span>
+                  </label>
+                  <label className="radio-label" data-testid="budget-moderate">
+                    <input type="radio" name="budget-type" className="radio-input" />
+                    <span className="radio-text">Moderate</span>
+                  </label>
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <div className="form-section">
+                <button type="button" className="form-submit" data-testid="submit-place-button">
+                  Submit for Review
+                </button>
+              </div>
+
+              {/* Thank You Message */}
+              <div className="thank-you-message" data-testid="thank-you-message">
+                <p className="thank-you-text">
+                  Thanks for contributing! We will review and add it soon.
+                </p>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
+
 // Main App Component
 function App() {
   return (
