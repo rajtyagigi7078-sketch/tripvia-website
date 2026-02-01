@@ -1,20 +1,30 @@
 import "@/App.css";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
-// Header Component
+// Header Component with Language Selector
 const Header = () => {
   return (
     <header className="header" data-testid="main-header">
       <div className="header-container">
-        <div className="logo" data-testid="logo">
-          <span className="logo-text">TravelStatic</span>
-        </div>
+        <Link to="/" className="logo" data-testid="logo">
+          <span className="logo-text">TravelCommunity</span>
+        </Link>
         <nav className="nav" data-testid="main-nav">
           <Link to="/" className="nav-link" data-testid="nav-home">Home</Link>
-          <Link to="/city" className="nav-link" data-testid="nav-city">Destinations</Link>
+          <Link to="/city-template" className="nav-link" data-testid="nav-destinations">Destinations</Link>
+          <Link to="/add-place" className="nav-link" data-testid="nav-add-place">Add a Place</Link>
+          <Link to="/how-it-works" className="nav-link" data-testid="nav-how-it-works">How It Works</Link>
           <Link to="/about" className="nav-link" data-testid="nav-about">About</Link>
           <Link to="/contact" className="nav-link" data-testid="nav-contact">Contact</Link>
         </nav>
+        <div className="language-selector" data-testid="language-selector">
+          <label className="language-label">Language</label>
+          <select className="language-select" data-testid="language-select">
+            <option value="en">English</option>
+            <option value="hi">Hindi</option>
+          </select>
+          <span className="language-note">More languages coming soon</span>
+        </div>
       </div>
     </header>
   );
@@ -26,25 +36,27 @@ const Footer = () => {
     <footer className="footer" data-testid="main-footer">
       <div className="footer-container">
         <div className="footer-section">
-          <h3 className="footer-heading">TravelStatic</h3>
-          <p className="footer-text">Your perfect travel companion</p>
+          <h3 className="footer-heading">TravelCommunity</h3>
+          <p className="footer-text">Built with community contributions and real travel experiences.</p>
         </div>
         <div className="footer-section">
           <h3 className="footer-heading">Quick Links</h3>
           <div className="footer-links">
             <a href="#" className="footer-link">Privacy Policy</a>
-            <a href="#" className="footer-link">Terms of Service</a>
-            <a href="#" className="footer-link">Help Center</a>
+            <a href="#" className="footer-link">Terms & Conditions</a>
+            <a href="#" className="footer-link">Disclaimer</a>
           </div>
         </div>
         <div className="footer-section">
-          <h3 className="footer-heading">Contact</h3>
-          <p className="footer-text">contact@travelstatic.com</p>
-          <p className="footer-text">+1 (555) 123-4567</p>
+          <h3 className="footer-heading">Important Notice</h3>
+          <p className="footer-text footer-disclaimer">
+            Hotel and travel bookings are handled by third-party partners. 
+            This website does not process payments or reservations.
+          </p>
         </div>
       </div>
       <div className="footer-bottom">
-        <p>© 2025 TravelStatic. All rights reserved.</p>
+        <p>© 2025 TravelCommunity. All rights reserved.</p>
       </div>
     </footer>
   );
@@ -57,410 +69,120 @@ const Home = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="hero" data-testid="hero-section">
-        <div className="hero-content">
-          <h1 className="hero-title" data-testid="hero-title">Discover Your Next Adventure</h1>
-          <p className="hero-subtitle">Explore amazing destinations around the world</p>
+      <section className="home-hero" data-testid="hero-section">
+        <div className="home-hero-content">
+          <h1 className="home-hero-title" data-testid="hero-title">
+            Plan Your Trip – One City at a Time
+          </h1>
+          <p className="home-hero-subtitle">
+            Discover places, food spots, budget stays, and travel options shared by real travelers.
+          </p>
           
           {/* Search Bar */}
-          <div className="search-container" data-testid="search-container">
+          <div className="home-search-container" data-testid="search-container">
             <input 
               type="text" 
-              placeholder="Where do you want to go?" 
-              className="search-input"
+              placeholder="Search or choose a city" 
+              className="home-search-input"
               data-testid="search-input"
             />
-            <button className="search-button" data-testid="search-button">Search</button>
+            <button className="home-search-button" data-testid="search-button">Search</button>
           </div>
         </div>
       </section>
 
-      {/* Traveller Count Options */}
-      <section className="options-section" data-testid="traveller-section">
+      {/* Popular Cities */}
+      <section className="home-section" data-testid="popular-cities-section">
         <div className="container">
-          <h2 className="section-title">Number of Travellers</h2>
-          <div className="option-buttons">
-            <button className="option-btn" data-testid="traveller-1">1 Person</button>
-            <button className="option-btn" data-testid="traveller-2">2 People</button>
-            <button className="option-btn" data-testid="traveller-3">3-5 People</button>
-            <button className="option-btn" data-testid="traveller-4">6+ People</button>
-          </div>
-        </div>
-      </section>
-
-      {/* Budget Options */}
-      <section className="options-section gray-bg" data-testid="budget-section">
-        <div className="container">
-          <h2 className="section-title">Select Your Budget</h2>
-          <div className="budget-options">
-            <div className="budget-card" data-testid="budget-low">
-              <div className="budget-symbol">₹</div>
-              <p className="budget-label">Budget-Friendly</p>
-            </div>
-            <div className="budget-card" data-testid="budget-medium">
-              <div className="budget-symbol">₹₹</div>
-              <p className="budget-label">Moderate</p>
-            </div>
-            <div className="budget-card" data-testid="budget-high">
-              <div className="budget-symbol">₹₹₹</div>
-              <p className="budget-label">Luxury</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Trip Type Options */}
-      <section className="options-section" data-testid="trip-type-section">
-        <div className="container">
-          <h2 className="section-title">Trip Type</h2>
-          <div className="checkbox-group">
-            <label className="checkbox-label" data-testid="trip-solo">
-              <input type="checkbox" className="checkbox-input" />
-              <span>Solo Travel</span>
-            </label>
-            <label className="checkbox-label" data-testid="trip-family">
-              <input type="checkbox" className="checkbox-input" />
-              <span>Family Trip</span>
-            </label>
-            <label className="checkbox-label" data-testid="trip-adventure">
-              <input type="checkbox" className="checkbox-input" />
-              <span>Adventure</span>
-            </label>
-            <label className="checkbox-label" data-testid="trip-relaxation">
-              <input type="checkbox" className="checkbox-input" />
-              <span>Relaxation</span>
-            </label>
-            <label className="checkbox-label" data-testid="trip-cultural">
-              <input type="checkbox" className="checkbox-input" />
-              <span>Cultural</span>
-            </label>
-            <label className="checkbox-label" data-testid="trip-business">
-              <input type="checkbox" className="checkbox-input" />
-              <span>Business</span>
-            </label>
-          </div>
-        </div>
-      </section>
-
-      {/* Popular Destinations */}
-      <section className="options-section gray-bg" data-testid="destinations-section">
-        <div className="container">
-          <h2 className="section-title">Popular Destinations</h2>
-          <div className="destination-grid">
-            <div className="destination-card" data-testid="destination-paris">
-              <div className="destination-image"></div>
-              <h3 className="destination-name">Paris, France</h3>
-              <p className="destination-description">The City of Light awaits with iconic landmarks</p>
-            </div>
-            <div className="destination-card" data-testid="destination-tokyo">
-              <div className="destination-image"></div>
-              <h3 className="destination-name">Tokyo, Japan</h3>
-              <p className="destination-description">Modern metropolis meets ancient tradition</p>
-            </div>
-            <div className="destination-card" data-testid="destination-bali">
-              <div className="destination-image"></div>
-              <h3 className="destination-name">Bali, Indonesia</h3>
-              <p className="destination-description">Tropical paradise with stunning beaches</p>
-            </div>
-            <div className="destination-card" data-testid="destination-newyork">
-              <div className="destination-image"></div>
-              <h3 className="destination-name">New York, USA</h3>
-              <p className="destination-description">The city that never sleeps</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Map Section */}
-      <section className="options-section" data-testid="map-section">
-        <div className="container">
-          <h2 className="section-title">Explore Map</h2>
-          <div className="map-placeholder" data-testid="map-placeholder">
-            <p className="map-text">Map will appear here</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Stay Options */}
-      <section className="options-section gray-bg" data-testid="stay-section">
-        <div className="container">
-          <h2 className="section-title">Stay Options</h2>
-          <div className="stay-grid">
-            <div className="stay-card" data-testid="stay-hotel">
-              <div className="stay-icon">🏨</div>
-              <h3 className="stay-name">Luxury Hotel</h3>
-              <p className="stay-description">5-star accommodations with premium amenities</p>
-              <p className="stay-price">From $200/night</p>
-            </div>
-            <div className="stay-card" data-testid="stay-apartment">
-              <div className="stay-icon">🏠</div>
-              <h3 className="stay-name">Apartment</h3>
-              <p className="stay-description">Comfortable home-away-from-home experience</p>
-              <p className="stay-price">From $100/night</p>
-            </div>
-            <div className="stay-card" data-testid="stay-hostel">
-              <div className="stay-icon">🛏️</div>
-              <h3 className="stay-name">Hostel</h3>
-              <p className="stay-description">Budget-friendly shared accommodations</p>
-              <p className="stay-price">From $30/night</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Itinerary Section */}
-      <section className="options-section" data-testid="itinerary-section">
-        <div className="container">
-          <h2 className="section-title">Sample Itinerary</h2>
-          <div className="itinerary-list">
-            <div className="itinerary-item" data-testid="itinerary-day1">
-              <div className="itinerary-day">Day 1</div>
-              <div className="itinerary-content">
-                <h3 className="itinerary-title">Arrival and City Exploration</h3>
-                <p className="itinerary-description">Check into your hotel, explore the city center, visit local markets, and enjoy dinner at a traditional restaurant.</p>
+          <h2 className="section-title">Popular Cities</h2>
+          <div className="cities-grid">
+            <div className="city-card" data-testid="city-rishikesh">
+              <div className="city-card-image"></div>
+              <div className="city-card-content">
+                <h3 className="city-card-name">Rishikesh</h3>
+                <p className="city-card-description">Yoga capital and spiritual destination</p>
+                <Link to="/city-template">
+                  <button className="city-card-button">Explore City Guide</button>
+                </Link>
               </div>
             </div>
-            <div className="itinerary-item" data-testid="itinerary-day2">
-              <div className="itinerary-day">Day 2</div>
-              <div className="itinerary-content">
-                <h3 className="itinerary-title">Historical Landmarks Tour</h3>
-                <p className="itinerary-description">Visit famous monuments, museums, and cultural sites. Take guided tours and learn about local history.</p>
+            
+            <div className="city-card" data-testid="city-goa">
+              <div className="city-card-image"></div>
+              <div className="city-card-content">
+                <h3 className="city-card-name">Goa</h3>
+                <p className="city-card-description">Beaches, nightlife, and Portuguese heritage</p>
+                <Link to="/city-template">
+                  <button className="city-card-button">Explore City Guide</button>
+                </Link>
               </div>
             </div>
-            <div className="itinerary-item" data-testid="itinerary-day3">
-              <div className="itinerary-day">Day 3</div>
-              <div className="itinerary-content">
-                <h3 className="itinerary-title">Adventure and Leisure</h3>
-                <p className="itinerary-description">Enjoy outdoor activities, shopping, and relaxation. Departure preparations in the evening.</p>
+            
+            <div className="city-card" data-testid="city-manali">
+              <div className="city-card-image"></div>
+              <div className="city-card-content">
+                <h3 className="city-card-name">Manali</h3>
+                <p className="city-card-description">Mountain adventures and scenic valleys</p>
+                <Link to="/city-template">
+                  <button className="city-card-button">Explore City Guide</button>
+                </Link>
+              </div>
+            </div>
+            
+            <div className="city-card" data-testid="city-jaipur">
+              <div className="city-card-image"></div>
+              <div className="city-card-content">
+                <h3 className="city-card-name">Jaipur</h3>
+                <p className="city-card-description">Pink city with royal heritage</p>
+                <Link to="/city-template">
+                  <button className="city-card-button">Explore City Guide</button>
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <Footer />
-    </div>
-  );
-};
-
-// City Page
-const CityPage = () => {
-  return (
-    <div data-testid="city-page">
-      <Header />
-      
-      <div className="city-hero" data-testid="city-hero">
-        <h1 className="city-title" data-testid="city-title">Paris, France</h1>
-        <p className="city-subtitle">The City of Light</p>
-      </div>
-
-      <section className="city-section">
+      {/* Community Section */}
+      <section className="home-section home-community-section" data-testid="community-section">
         <div className="container">
-          <h2 className="section-title">About Paris</h2>
-          <p className="city-description" data-testid="city-description">
-            Paris, the capital of France, is a major European city and a global center for art, fashion, gastronomy, and culture. 
-            Its 19th-century cityscape is crisscrossed by wide boulevards and the River Seine. Beyond such landmarks as the Eiffel 
-            Tower and the 12th-century Gothic Notre-Dame cathedral, the city is known for its cafe culture and designer boutiques 
-            along the Rue du Faubourg Saint-Honoré.
-          </p>
-        </div>
-      </section>
-
-      <section className="city-section gray-bg">
-        <div className="container">
-          <h2 className="section-title">Places to Visit</h2>
-          <div className="places-list" data-testid="places-list">
-            <div className="place-item" data-testid="place-1">
-              <h3 className="place-name">Eiffel Tower</h3>
-              <p className="place-description">Iconic iron lattice tower and symbol of Paris</p>
-            </div>
-            <div className="place-item" data-testid="place-2">
-              <h3 className="place-name">Louvre Museum</h3>
-              <p className="place-description">World's largest art museum and historic monument</p>
-            </div>
-            <div className="place-item" data-testid="place-3">
-              <h3 className="place-name">Notre-Dame Cathedral</h3>
-              <p className="place-description">Medieval Catholic cathedral with Gothic architecture</p>
-            </div>
-            <div className="place-item" data-testid="place-4">
-              <h3 className="place-name">Arc de Triomphe</h3>
-              <p className="place-description">Monumental arch honoring those who fought for France</p>
-            </div>
-            <div className="place-item" data-testid="place-5">
-              <h3 className="place-name">Champs-Élysées</h3>
-              <p className="place-description">Famous avenue lined with shops and cafes</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="city-section">
-        <div className="container">
-          <h2 className="section-title">Map View</h2>
-          <div className="map-placeholder" data-testid="city-map">
-            <p className="map-text">Map will appear here</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="city-section gray-bg">
-        <div className="container">
-          <h2 className="section-title">Where to Stay</h2>
-          <div className="stay-list" data-testid="stay-list">
-            <div className="stay-card">
-              <h3 className="stay-name">Le Grand Hotel</h3>
-              <p className="stay-description">Luxury 5-star hotel near the Louvre</p>
-              <p className="stay-price">From €300/night</p>
-            </div>
-            <div className="stay-card">
-              <h3 className="stay-name">Parisian Apartments</h3>
-              <p className="stay-description">Charming apartments in the Marais district</p>
-              <p className="stay-price">From €150/night</p>
-            </div>
-            <div className="stay-card">
-              <h3 className="stay-name">Budget Hostel Paris</h3>
-              <p className="stay-description">Affordable hostel near Montmartre</p>
-              <p className="stay-price">From €40/night</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="city-section">
-        <div className="container">
-          <h2 className="section-title">3-Day Itinerary</h2>
-          <div className="itinerary-text" data-testid="city-itinerary">
-            <p><strong>Day 1:</strong> Arrive in Paris, check into hotel, visit the Eiffel Tower, evening Seine river cruise.</p>
-            <p><strong>Day 2:</strong> Louvre Museum tour, lunch at a Parisian cafe, explore Notre-Dame and Latin Quarter.</p>
-            <p><strong>Day 3:</strong> Montmartre and Sacré-Cœur, shopping on Champs-Élysées, farewell dinner in Le Marais.</p>
-          </div>
-        </div>
-      </section>
-
-      <Footer />
-    </div>
-  );
-};
-
-// About Page
-const AboutPage = () => {
-  return (
-    <div data-testid="about-page">
-      <Header />
-      
-      <div className="page-hero" data-testid="about-hero">
-        <h1 className="page-title">About TravelStatic</h1>
-      </div>
-
-      <section className="page-section">
-        <div className="container">
-          <div className="about-content">
-            <h2 className="section-title">Our Mission</h2>
-            <p className="about-text" data-testid="mission-text">
-              At TravelStatic, we believe that travel should be accessible, enjoyable, and memorable for everyone. 
-              Our mission is to provide travelers with comprehensive information and resources to plan their perfect journey.
+          <div className="community-content">
+            <h2 className="community-title">Know a place others should visit?</h2>
+            <p className="community-description">
+              Help fellow travelers discover amazing places by sharing your experiences
             </p>
-          </div>
-
-          <div className="about-content">
-            <h2 className="section-title">What We Offer</h2>
-            <p className="about-text" data-testid="offers-text">
-              We provide detailed destination guides, accommodation options, budget planning tools, and sample itineraries 
-              to help you make the most of your travel experience. Whether you're a solo backpacker or planning a family 
-              vacation, we have something for everyone.
-            </p>
-          </div>
-
-          <div className="about-content">
-            <h2 className="section-title">Our Values</h2>
-            <div className="values-grid">
-              <div className="value-card" data-testid="value-1">
-                <h3 className="value-title">Authenticity</h3>
-                <p className="value-text">Real experiences from real travelers</p>
-              </div>
-              <div className="value-card" data-testid="value-2">
-                <h3 className="value-title">Accessibility</h3>
-                <p className="value-text">Travel options for every budget</p>
-              </div>
-              <div className="value-card" data-testid="value-3">
-                <h3 className="value-title">Inspiration</h3>
-                <p className="value-text">Discover new destinations</p>
-              </div>
-              <div className="value-card" data-testid="value-4">
-                <h3 className="value-title">Community</h3>
-                <p className="value-text">Connect with fellow travelers</p>
-              </div>
-            </div>
+            <Link to="/add-place">
+              <button className="community-button" data-testid="add-place-cta">Add a Place</button>
+            </Link>
           </div>
         </div>
       </section>
 
-      <Footer />
-    </div>
-  );
-};
-
-// Contact Page
-const ContactPage = () => {
-  return (
-    <div data-testid="contact-page">
-      <Header />
-      
-      <div className="page-hero" data-testid="contact-hero">
-        <h1 className="page-title">Contact Us</h1>
-      </div>
-
-      <section className="page-section">
+      {/* Mini How It Works */}
+      <section className="home-section" data-testid="how-it-works-section">
         <div className="container">
-          <div className="contact-content">
-            <div className="contact-info">
-              <h2 className="section-title">Get in Touch</h2>
-              <p className="contact-text" data-testid="contact-intro">
-                Have questions or feedback? We'd love to hear from you. Fill out the form or reach us using the contact information below.
-              </p>
-              
-              <div className="contact-details" data-testid="contact-details">
-                <div className="contact-item">
-                  <h3 className="contact-label">Email</h3>
-                  <p className="contact-value">contact@travelstatic.com</p>
-                </div>
-                <div className="contact-item">
-                  <h3 className="contact-label">Phone</h3>
-                  <p className="contact-value">+1 (555) 123-4567</p>
-                </div>
-                <div className="contact-item">
-                  <h3 className="contact-label">Address</h3>
-                  <p className="contact-value">123 Travel Street, Adventure City, TC 12345</p>
-                </div>
-              </div>
+          <h2 className="section-title">How It Works</h2>
+          <div className="how-it-works-grid">
+            <div className="how-it-works-card" data-testid="step-1">
+              <div className="step-number">1</div>
+              <h3 className="step-title">Choose a city</h3>
+              <p className="step-description">Browse our collection of travel destinations</p>
             </div>
-
-            <div className="contact-form-wrapper">
-              <h2 className="section-title">Send a Message</h2>
-              <form className="contact-form" data-testid="contact-form">
-                <div className="form-group">
-                  <label className="form-label" data-testid="name-label">Name</label>
-                  <input type="text" className="form-input" placeholder="Your name" data-testid="name-input" />
-                </div>
-                
-                <div className="form-group">
-                  <label className="form-label" data-testid="email-label">Email</label>
-                  <input type="email" className="form-input" placeholder="your@email.com" data-testid="email-input" />
-                </div>
-                
-                <div className="form-group">
-                  <label className="form-label" data-testid="subject-label">Subject</label>
-                  <input type="text" className="form-input" placeholder="What is this about?" data-testid="subject-input" />
-                </div>
-                
-                <div className="form-group">
-                  <label className="form-label" data-testid="message-label">Message</label>
-                  <textarea className="form-textarea" rows="5" placeholder="Your message..." data-testid="message-input"></textarea>
-                </div>
-                
-                <button type="button" className="form-submit" data-testid="submit-button">Send Message</button>
-              </form>
+            
+            <div className="how-it-works-card" data-testid="step-2">
+              <div className="step-number">2</div>
+              <h3 className="step-title">Explore places, food, and stays</h3>
+              <p className="step-description">Discover recommendations from real travelers</p>
             </div>
+            
+            <div className="how-it-works-card" data-testid="step-3">
+              <div className="step-number">3</div>
+              <h3 className="step-title">Share your experience</h3>
+              <p className="step-description">Add places to help other travelers</p>
+            </div>
+          </div>
+          <div className="how-it-works-link">
+            <Link to="/how-it-works" className="link-button">Learn More</Link>
           </div>
         </div>
       </section>
@@ -470,7 +192,7 @@ const ContactPage = () => {
   );
 };
 
-// City Template Page
+// City Template Page (Complete with all sections)
 const CityTemplatePage = () => {
   return (
     <div data-testid="city-template-page">
@@ -483,7 +205,7 @@ const CityTemplatePage = () => {
         </div>
         <div className="city-template-overlay">
           <h1 className="city-template-title" data-testid="city-template-title">City Name Here</h1>
-          <p className="city-template-subtitle">Complete travel guide for this city</p>
+          <p className="city-template-subtitle">Your complete travel guide</p>
         </div>
       </div>
 
@@ -505,7 +227,7 @@ const CityTemplatePage = () => {
         <div className="container">
           <h2 className="section-title">Places to Visit</h2>
           <div className="template-places-grid" data-testid="places-grid">
-            <div className="template-place-card" data-testid="place-card-1">
+            <Link to="/place-detail" className="template-place-card" data-testid="place-card-1">
               <div className="template-place-image">
                 <span className="placeholder-text-small">Image</span>
               </div>
@@ -514,9 +236,9 @@ const CityTemplatePage = () => {
                 <p className="template-place-description">Short description of the place goes here</p>
                 <span className="budget-tag budget-free" data-testid="budget-tag-1">Free</span>
               </div>
-            </div>
+            </Link>
             
-            <div className="template-place-card" data-testid="place-card-2">
+            <Link to="/place-detail" className="template-place-card" data-testid="place-card-2">
               <div className="template-place-image">
                 <span className="placeholder-text-small">Image</span>
               </div>
@@ -525,9 +247,9 @@ const CityTemplatePage = () => {
                 <p className="template-place-description">Short description of the place goes here</p>
                 <span className="budget-tag budget-cheap" data-testid="budget-tag-2">Cheap</span>
               </div>
-            </div>
+            </Link>
             
-            <div className="template-place-card" data-testid="place-card-3">
+            <Link to="/place-detail" className="template-place-card" data-testid="place-card-3">
               <div className="template-place-image">
                 <span className="placeholder-text-small">Image</span>
               </div>
@@ -536,9 +258,9 @@ const CityTemplatePage = () => {
                 <p className="template-place-description">Short description of the place goes here</p>
                 <span className="budget-tag budget-moderate" data-testid="budget-tag-3">Moderate</span>
               </div>
-            </div>
+            </Link>
             
-            <div className="template-place-card" data-testid="place-card-4">
+            <Link to="/place-detail" className="template-place-card" data-testid="place-card-4">
               <div className="template-place-image">
                 <span className="placeholder-text-small">Image</span>
               </div>
@@ -547,7 +269,11 @@ const CityTemplatePage = () => {
                 <p className="template-place-description">Short description of the place goes here</p>
                 <span className="budget-tag budget-cheap" data-testid="budget-tag-4">Cheap</span>
               </div>
-            </div>
+            </Link>
+          </div>
+          
+          <div className="empty-state" data-testid="empty-state">
+            <p className="empty-state-text">More places will be added soon.</p>
           </div>
         </div>
       </section>
@@ -597,7 +323,7 @@ const CityTemplatePage = () => {
         </div>
       </section>
 
-      {/* Simple Itinerary */}
+      {/* Suggested Itinerary */}
       <section className="template-section">
         <div className="container">
           <h2 className="section-title">Suggested Itinerary</h2>
@@ -635,13 +361,126 @@ const CityTemplatePage = () => {
         </div>
       </section>
 
-      {/* Map Section */}
+      {/* Where to Stay - Hotel Booking Placeholder */}
+      <section className="template-section gray-bg">
+        <div className="container">
+          <h2 className="section-title">Where to Stay</h2>
+          <div className="hotel-grid" data-testid="hotel-grid">
+            <div className="hotel-card" data-testid="hotel-1">
+              <div className="hotel-image">
+                <span className="placeholder-text-small">Hotel Image</span>
+              </div>
+              <div className="hotel-content">
+                <h3 className="hotel-name">Budget Hotel Name</h3>
+                <span className="hotel-type">Budget</span>
+                <p className="hotel-price">₹800 - ₹1500 per night</p>
+                <button className="hotel-book-button" data-testid="book-hotel-1">Book Hotel</button>
+                <p className="coming-soon-text">Booking will be available soon</p>
+              </div>
+            </div>
+            
+            <div className="hotel-card" data-testid="hotel-2">
+              <div className="hotel-image">
+                <span className="placeholder-text-small">Hotel Image</span>
+              </div>
+              <div className="hotel-content">
+                <h3 className="hotel-name">Standard Hotel Name</h3>
+                <span className="hotel-type">Standard</span>
+                <p className="hotel-price">₹2000 - ₹3500 per night</p>
+                <button className="hotel-book-button" data-testid="book-hotel-2">Book Hotel</button>
+                <p className="coming-soon-text">Booking will be available soon</p>
+              </div>
+            </div>
+            
+            <div className="hotel-card" data-testid="hotel-3">
+              <div className="hotel-image">
+                <span className="placeholder-text-small">Hotel Image</span>
+              </div>
+              <div className="hotel-content">
+                <h3 className="hotel-name">Luxury Hotel Name</h3>
+                <span className="hotel-type">Luxury</span>
+                <p className="hotel-price">₹5000+ per night</p>
+                <button className="hotel-book-button" data-testid="book-hotel-3">Book Hotel</button>
+                <p className="coming-soon-text">Booking will be available soon</p>
+              </div>
+            </div>
+          </div>
+          <div className="partner-note" data-testid="hotel-partner-note">
+            <p>Hotel bookings will be handled by trusted third-party partners.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Travel to This City - Bus Booking Placeholder */}
+      <section className="template-section">
+        <div className="container">
+          <h2 className="section-title">Travel to This City</h2>
+          <div className="bus-booking-container" data-testid="bus-booking">
+            <div className="bus-booking-form">
+              <div className="bus-form-row">
+                <div className="bus-form-group">
+                  <label className="bus-label">From City</label>
+                  <input type="text" className="bus-input" placeholder="Enter your city" data-testid="from-city-input" />
+                </div>
+                <div className="bus-form-group">
+                  <label className="bus-label">To City</label>
+                  <input type="text" className="bus-input" value="City Name Here" readOnly data-testid="to-city-input" />
+                </div>
+                <div className="bus-form-group">
+                  <label className="bus-label">Travel Date</label>
+                  <input type="date" className="bus-input" data-testid="travel-date-input" />
+                </div>
+              </div>
+              <button className="bus-search-button" data-testid="search-buses-button">Search Buses</button>
+              <p className="coming-soon-text">Bus booking will be available soon</p>
+            </div>
+            <div className="partner-note" data-testid="bus-partner-note">
+              <p>Bus bookings will redirect to official travel partners.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* City Map */}
       <section className="template-section gray-bg">
         <div className="container">
           <h2 className="section-title">City Map</h2>
           <div className="template-map-placeholder" data-testid="map-placeholder">
-            <p className="template-map-text">Map will be added here later</p>
+            <p className="template-map-text">Interactive map coming soon</p>
           </div>
+        </div>
+      </section>
+
+      {/* Reviews */}
+      <section className="template-section">
+        <div className="container">
+          <h2 className="section-title">Reviews</h2>
+          <div className="reviews-placeholder" data-testid="reviews-placeholder">
+            <div className="stars-placeholder">★★★★★</div>
+            <p className="reviews-coming-soon">Traveler reviews coming soon</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Photo Gallery */}
+      <section className="template-section gray-bg">
+        <div className="container">
+          <h2 className="section-title">Photo Gallery</h2>
+          <div className="gallery-grid" data-testid="gallery-grid">
+            <div className="gallery-item">
+              <span className="placeholder-text-small">Photo 1</span>
+            </div>
+            <div className="gallery-item">
+              <span className="placeholder-text-small">Photo 2</span>
+            </div>
+            <div className="gallery-item">
+              <span className="placeholder-text-small">Photo 3</span>
+            </div>
+            <div className="gallery-item">
+              <span className="placeholder-text-small">Photo 4</span>
+            </div>
+          </div>
+          <p className="gallery-coming-soon">Traveler photos will appear here</p>
         </div>
       </section>
 
@@ -654,6 +493,70 @@ const CityTemplatePage = () => {
             <Link to="/add-place">
               <button className="cta-button" data-testid="add-place-button">Add a Place</button>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
+
+// Place Detail Template Page
+const PlaceDetailPage = () => {
+  return (
+    <div data-testid="place-detail-page">
+      <Header />
+      
+      <div className="place-detail-hero">
+        <h1 className="place-detail-title" data-testid="place-detail-title">Place Name</h1>
+      </div>
+
+      <section className="place-detail-section">
+        <div className="container">
+          <div className="place-detail-content">
+            <h2 className="section-title">About This Place</h2>
+            <p className="place-detail-description" data-testid="place-description">
+              [Short description of the place. This will be replaced with actual information about the place, 
+              what makes it special, and why travelers should visit.]
+            </p>
+            
+            <div className="place-detail-tag">
+              <span className="budget-tag budget-free">Free</span>
+            </div>
+          </div>
+
+          <div className="place-detail-gallery">
+            <h2 className="section-title">Photos</h2>
+            <div className="gallery-grid">
+              <div className="gallery-item">
+                <span className="placeholder-text-small">Photo 1</span>
+              </div>
+              <div className="gallery-item">
+                <span className="placeholder-text-small">Photo 2</span>
+              </div>
+              <div className="gallery-item">
+                <span className="placeholder-text-small">Photo 3</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="place-detail-map">
+            <h2 className="section-title">Location</h2>
+            <div className="template-map-placeholder">
+              <p className="template-map-text">Map coming soon</p>
+            </div>
+          </div>
+
+          <div className="place-detail-reviews">
+            <h2 className="section-title">Reviews</h2>
+            <div className="reviews-placeholder">
+              <div className="stars-placeholder">★★★★★</div>
+              <p className="reviews-coming-soon">Reviews coming soon</p>
+            </div>
+            <button className="review-button" data-testid="write-review-button">
+              Write a review (coming soon)
+            </button>
           </div>
         </div>
       </section>
@@ -788,6 +691,203 @@ const AddPlacePage = () => {
   );
 };
 
+// How It Works Page
+const HowItWorksPage = () => {
+  return (
+    <div data-testid="how-it-works-page">
+      <Header />
+      
+      <div className="page-hero">
+        <h1 className="page-title">How It Works</h1>
+      </div>
+
+      <section className="page-section">
+        <div className="container">
+          <div className="how-it-works-detailed">
+            <div className="how-step" data-testid="how-step-1">
+              <div className="how-step-number">1</div>
+              <div className="how-step-content">
+                <h2 className="how-step-title">Choose a city</h2>
+                <p className="how-step-description">
+                  Browse our collection of travel destinations and select the city you want to explore. 
+                  Each city has a complete guide with places to visit, food recommendations, and stay options.
+                </p>
+              </div>
+            </div>
+
+            <div className="how-step" data-testid="how-step-2">
+              <div className="how-step-number">2</div>
+              <div className="how-step-content">
+                <h2 className="how-step-title">Explore places, food, stays, and travel options</h2>
+                <p className="how-step-description">
+                  Discover recommendations shared by real travelers. Find budget-friendly stays, local food spots, 
+                  must-visit places, and convenient travel options. All information is contributed by the community.
+                </p>
+              </div>
+            </div>
+
+            <div className="how-step" data-testid="how-step-3">
+              <div className="how-step-number">3</div>
+              <div className="how-step-content">
+                <h2 className="how-step-title">Share your experience</h2>
+                <p className="how-step-description">
+                  Know a great place others should visit? Add it to our platform! Your contributions help fellow 
+                  travelers discover amazing experiences. Every submission is reviewed before being added.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
+
+// Admin Review Page (Hidden)
+const AdminReviewPage = () => {
+  return (
+    <div data-testid="admin-review-page">
+      <Header />
+      
+      <div className="page-hero">
+        <h1 className="page-title">Submissions Review (Admin)</h1>
+      </div>
+
+      <section className="page-section">
+        <div className="container">
+          <div className="admin-placeholder" data-testid="admin-placeholder">
+            <p className="admin-placeholder-text">
+              Submitted places will appear here for review and approval.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
+
+// Search Results Page
+const SearchResultsPage = () => {
+  return (
+    <div data-testid="search-results-page">
+      <Header />
+      
+      <div className="page-hero">
+        <h1 className="page-title">Search Results</h1>
+      </div>
+
+      <section className="page-section">
+        <div className="container">
+          <div className="search-placeholder" data-testid="search-placeholder">
+            <p className="search-placeholder-text">
+              Search functionality coming soon.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
+
+// About Page
+const AboutPage = () => {
+  return (
+    <div data-testid="about-page">
+      <Header />
+      
+      <div className="page-hero">
+        <h1 className="page-title">About TravelCommunity</h1>
+      </div>
+
+      <section className="page-section">
+        <div className="container">
+          <div className="about-content-detailed">
+            <p className="about-text-large" data-testid="about-main-text">
+              This platform helps travelers discover places, food spots, budget stays, and travel options 
+              through real experiences shared by the community.
+            </p>
+            
+            <div className="about-mission">
+              <h2 className="section-title">Our Mission</h2>
+              <p className="about-text">
+                To create a community-driven platform where travelers can share and discover authentic travel 
+                experiences, making trip planning easier and more reliable for everyone.
+              </p>
+            </div>
+
+            <div className="about-values">
+              <h2 className="section-title">Our Values</h2>
+              <div className="values-grid">
+                <div className="value-card">
+                  <h3 className="value-title">Community First</h3>
+                  <p className="value-text">Built by travelers, for travelers</p>
+                </div>
+                <div className="value-card">
+                  <h3 className="value-title">Authenticity</h3>
+                  <p className="value-text">Real experiences from real people</p>
+                </div>
+                <div className="value-card">
+                  <h3 className="value-title">Accessibility</h3>
+                  <p className="value-text">Travel options for every budget</p>
+                </div>
+                <div className="value-card">
+                  <h3 className="value-title">Transparency</h3>
+                  <p className="value-text">Honest recommendations you can trust</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
+
+// Contact Page
+const ContactPage = () => {
+  return (
+    <div data-testid="contact-page">
+      <Header />
+      
+      <div className="page-hero">
+        <h1 className="page-title">Contact Us</h1>
+      </div>
+
+      <section className="page-section">
+        <div className="container">
+          <div className="contact-content-simple">
+            <p className="contact-text-simple" data-testid="contact-text">
+              For suggestions or queries, please contact us.
+            </p>
+            
+            <div className="contact-details-simple">
+              <div className="contact-item-simple">
+                <h3 className="contact-label-simple">Email</h3>
+                <p className="contact-value-simple">hello@travelcommunity.com</p>
+              </div>
+              
+              <div className="contact-item-simple">
+                <h3 className="contact-label-simple">Support</h3>
+                <p className="contact-value-simple">support@travelcommunity.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
+
 // Main App Component
 function App() {
   return (
@@ -795,9 +895,12 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/city" element={<CityPage />} />
           <Route path="/city-template" element={<CityTemplatePage />} />
+          <Route path="/place-detail" element={<PlaceDetailPage />} />
           <Route path="/add-place" element={<AddPlacePage />} />
+          <Route path="/how-it-works" element={<HowItWorksPage />} />
+          <Route path="/admin-review" element={<AdminReviewPage />} />
+          <Route path="/search-results" element={<SearchResultsPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
