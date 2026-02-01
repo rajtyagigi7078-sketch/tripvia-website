@@ -828,3 +828,548 @@
     height: 60px;
   }
 }
+
+/* ============================================ */
+/* CITY TEMPLATE PAGE STYLES */
+/* ============================================ */
+
+/* City Template Hero */
+.city-template-hero {
+  position: relative;
+  height: 500px;
+  background: linear-gradient(135deg, #e5e5e5 0%, #d4d4d4 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.city-template-image-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+}
+
+.city-template-overlay {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  max-width: 600px;
+}
+
+.city-template-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #0a0a0a;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.03em;
+}
+
+.city-template-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.25rem;
+  color: #525252;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.placeholder-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  color: #a3a3a3;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.placeholder-text-small {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: #a3a3a3;
+  font-weight: 500;
+}
+
+/* Template Sections */
+.template-section {
+  padding: 4rem 0;
+}
+
+.template-content-box {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: 1px solid #e5e5e5;
+}
+
+.template-placeholder-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  color: #737373;
+  line-height: 1.8;
+  font-style: italic;
+}
+
+/* Template Places Grid */
+.template-places-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.template-place-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid #e5e5e5;
+  transition: all 0.3s ease;
+}
+
+.template-place-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.template-place-image {
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.template-place-content {
+  padding: 1.5rem;
+}
+
+.template-place-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.template-place-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  color: #737373;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* Budget Tags */
+.budget-tag {
+  display: inline-block;
+  padding: 0.375rem 1rem;
+  border-radius: 50px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.budget-free {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.budget-cheap {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.budget-moderate {
+  background-color: #fce4ec;
+  color: #c2185b;
+}
+
+/* Template List */
+.template-list {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.template-list-item {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  border: 1px solid #e5e5e5;
+}
+
+.template-list-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.template-list-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  color: #737373;
+  line-height: 1.6;
+}
+
+/* Template Stays Grid */
+.template-stays-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.template-stay-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  border: 1px solid #e5e5e5;
+  transition: all 0.3s ease;
+}
+
+.template-stay-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border-color: #0a0a0a;
+}
+
+.template-stay-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.template-stay-budget {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0a0a0a;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.template-stay-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  color: #737373;
+  line-height: 1.6;
+}
+
+/* Template Itinerary */
+.template-itinerary {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.template-itinerary-day {
+  display: flex;
+  gap: 2rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  border: 1px solid #e5e5e5;
+}
+
+.template-day-number {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  background-color: #0a0a0a;
+  color: white;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.template-day-content {
+  flex: 1;
+}
+
+.template-day-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.template-day-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  color: #737373;
+  line-height: 1.7;
+  font-style: italic;
+}
+
+/* Template Map Placeholder */
+.template-map-placeholder {
+  width: 100%;
+  height: 400px;
+  background: white;
+  border: 2px dashed #d4d4d4;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.template-map-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.25rem;
+  color: #a3a3a3;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* CTA Section */
+.template-cta {
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  padding: 5rem 0;
+}
+
+.cta-content {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.cta-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0a0a0a;
+  margin-bottom: 1rem;
+  letter-spacing: -0.03em;
+}
+
+.cta-description {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  color: #525252;
+  margin-bottom: 2rem;
+  letter-spacing: -0.01em;
+}
+
+.cta-button {
+  padding: 1.25rem 3rem;
+  background-color: #0a0a0a;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  letter-spacing: -0.01em;
+}
+
+.cta-button:hover {
+  background-color: #2a2a2a;
+  transform: translateY(-2px);
+}
+
+/* ============================================ */
+/* ADD A PLACE PAGE STYLES */
+/* ============================================ */
+
+.page-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  color: #525252;
+  margin-top: 1rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.add-place-form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 3rem;
+  border-radius: 20px;
+  border: 1px solid #e5e5e5;
+}
+
+.add-place-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  letter-spacing: -0.01em;
+}
+
+/* Radio Group */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.radio-group-horizontal {
+  flex-direction: row;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: #fafafa;
+  border: 2px solid #e5e5e5;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #0a0a0a;
+  letter-spacing: -0.01em;
+}
+
+.radio-label:hover {
+  border-color: #0a0a0a;
+  background-color: #f5f5f5;
+}
+
+.radio-input {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #0a0a0a;
+}
+
+.radio-text {
+  user-select: none;
+}
+
+/* Select Dropdown */
+.form-select {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  padding: 1rem 1.25rem;
+  border: 2px solid #e5e5e5;
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.2s ease;
+  color: #0a0a0a;
+  background: white;
+  cursor: pointer;
+}
+
+.form-select:focus {
+  border-color: #0a0a0a;
+}
+
+/* Location Placeholder */
+.location-placeholder {
+  width: 100%;
+  height: 200px;
+  background: #fafafa;
+  border: 2px dashed #d4d4d4;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.location-placeholder-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #a3a3a3;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* Thank You Message */
+.thank-you-message {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  text-align: center;
+  margin-top: -1rem;
+}
+
+.thank-you-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #2e7d32;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Responsive - City Template & Add Place */
+@media (max-width: 768px) {
+  .city-template-title {
+    font-size: 2.5rem;
+  }
+
+  .template-places-grid,
+  .template-stays-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .template-itinerary-day {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .template-day-number {
+    width: 60px;
+    height: 60px;
+  }
+
+  .add-place-form-container {
+    padding: 2rem 1.5rem;
+  }
+
+  .radio-group-horizontal {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .cta-title {
+    font-size: 2rem;
+  }
+}
