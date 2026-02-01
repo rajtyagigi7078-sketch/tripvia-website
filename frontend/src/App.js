@@ -796,6 +796,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/city" element={<CityPage />} />
+          <Route path="/city-template" element={<CityTemplatePage />} />
+          <Route path="/add-place" element={<AddPlacePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
