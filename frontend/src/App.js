@@ -1,6 +1,22 @@
 import "@/App.css";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+// ============================================
+// DYNAMIC HERO TEXTS
+// ============================================
+const HERO_TEXTS = [
+  "Plan your next journey, one place at a time",
+  "Where every trip begins with an idea",
+  "Discover places. Plan better trips.",
+  "Turn travel ideas into real journeys",
+  "Your guide to unforgettable trips",
+  "Explore destinations the smart way",
+  "From planning to exploring — all in one place",
+  "Travel smarter, not harder",
+  "Find places, food, stays & experiences",
+  "Every destination has a story — start yours"
+];
 
 // ============================================
 // MOCK DATA STRUCTURES (Backend-Ready)
@@ -73,6 +89,23 @@ const ITEMS_DATA = [
   { item_id: "j4", city_id: "jaipur", title: "Jaipur Inn", type: "stay", budget_type: "budget", short_description: "Heritage guesthouse", image: null, approx_price_range: "₹800-₹1500/night", booking_url: "" }
 ];
 
+const ICONIC_PLACES_DATA = [
+  { id: "ip1", name: "Taj Mahal", tagline: "Symbol of eternal love", image: null },
+  { id: "ip2", name: "Golden Temple", tagline: "Spiritual sanctuary", image: null },
+  { id: "ip3", name: "Gateway of India", tagline: "Historic monument", image: null },
+  { id: "ip4", name: "Hawa Mahal", tagline: "Palace of winds", image: null },
+  { id: "ip5", name: "Amber Fort", tagline: "Majestic hilltop palace", image: null },
+  { id: "ip6", name: "Victoria Memorial", tagline: "Colonial architecture", image: null }
+];
+
+const COMMUNITY_PHOTOS_DATA = [
+  { id: "cp1", username: "traveler_raj", photo: null, caption: "Sunset at Goa beach" },
+  { id: "cp2", username: "wanderlust_priya", photo: null, caption: "Rishikesh rafting adventure" },
+  { id: "cp3", username: "explorer_amit", photo: null, caption: "Manali snow views" },
+  { id: "cp4", username: "foodie_neha", photo: null, caption: "Street food in Jaipur" },
+  { id: "cp5", username: "mountain_lover", photo: null, caption: "Himalayan sunrise" }
+];
+
 const TRAVEL_INFO_DATA = [
   { from_city: "Delhi", to_city: "Rishikesh", travel_type: "bus", approx_price_range: "₹400-₹800", booking_url: "" },
   { from_city: "Delhi", to_city: "Manali", travel_type: "bus", approx_price_range: "₹800-₹1500", booking_url: "" },
@@ -90,7 +123,7 @@ const Header = () => {
       <header className="header" data-testid="main-header">
         <div className="header-container">
           <Link to="/" className="logo" data-testid="logo">
-            <span className="logo-text">TravelCommunity</span>
+            <span className="logo-text">TRIPVIA</span>
           </Link>
           
           <nav className="desktop-nav" data-testid="main-nav">
@@ -133,7 +166,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-section">
-          <h3 className="footer-heading">TravelCommunity</h3>
+          <h3 className="footer-heading">TRIPVIA</h3>
           <p className="footer-text">
             This platform helps travelers discover places through community-shared experiences.
           </p>
@@ -159,6 +192,18 @@ const Footer = () => {
 // HOMEPAGE
 // ============================================
 const Home = () => {
+  const [heroText, setHeroText] = useState("");
+  const [showSignupModal, setShowSignupModal] = useState(false);
+
+  useEffect(() => {
+    const randomText = HERO_TEXTS[Math.floor(Math.random() * HERO_TEXTS.length)];
+    setHeroText(randomText);
+  }, []);
+
+  const scrollToSearch = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="page-container" data-testid="homepage">
       <Header />
@@ -168,15 +213,14 @@ const Home = () => {
         <div className="home-hero-content">
           {/* Category Row - Mobile Above Search */}
           <div className="category-row mobile-only">
-            {['Hotels', 'Things to Do', 'Food & Cafes', 'Budget Stays'].map((cat, idx) => (
-              <Link to="/city-template" className="category-card" key={idx}>
-                <div className="category-icon">{['🏨', '🎯', '🍽️', '🏠'][idx]}</div>
+            {['Hotels', 'Things to Do', 'Food & Cafes'].map((cat, idx) => (
+              <button onClick={scrollToSearch} className="category-card" key={idx}>
                 <span className="category-name">{cat}</span>
-              </Link>
+              </button>
             ))}
           </div>
 
-          <h1 className="home-hero-title">Plan your trip in a single click</h1>
+          <h1 className="home-hero-title">{heroText}</h1>
           
           <div className="home-search-container">
             <input type="text" placeholder="Search destinations, hotels, restaurants..." className="home-search-input" />
@@ -185,28 +229,66 @@ const Home = () => {
 
           {/* Category Row - Desktop Below Search */}
           <div className="category-row desktop-only">
-            {['Hotels', 'Things to Do', 'Food & Cafes', 'Budget Stays'].map((cat, idx) => (
-              <Link to="/city-template" className="category-card" key={idx}>
-                <div className="category-icon">{['🏨', '🎯', '🍽️', '🏠'][idx]}</div>
+            {['Hotels', 'Things to Do', 'Food & Cafes'].map((cat, idx) => (
+              <button onClick={scrollToSearch} className="category-card" key={idx}>
                 <span className="category-name">{cat}</span>
-              </Link>
+              </button>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Iconic Places */}
+      {/* Community Slideshow */}
+      <section className="community-slideshow-section">
+        <div className="container">
+          <div className="community-slideshow-header">
+            <h2 className="section-title">Shared by Travelers</h2>
+            <button className="post-photo-btn" onClick={() => setShowSignupModal(true)}>
+              Post your photo
+            </button>
+          </div>
+          <div className="horizontal-scroll">
+            {COMMUNITY_PHOTOS_DATA.map((photo) => (
+              <div className="community-photo-card" key={photo.id}>
+                <div className="community-photo-image"></div>
+                <div className="community-photo-info">
+                  <p className="community-username">@{photo.username}</p>
+                  <p className="community-caption">{photo.caption}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Signup Modal */}
+      {showSignupModal && (
+        <>
+          <div className="modal-overlay" onClick={() => setShowSignupModal(false)}></div>
+          <div className="modal">
+            <div className="modal-header">
+              <h2 className="modal-title">Create Account</h2>
+              <button className="modal-close" onClick={() => setShowSignupModal(false)}>✕</button>
+            </div>
+            <div className="modal-content">
+              <p className="modal-text">Sign up to share your travel photos and experiences with the community.</p>
+              <div className="modal-note">
+                <p>Note: Browsing does not require signup. Only posting photos requires an account.</p>
+              </div>
+              <button className="modal-button">Create Account (Coming Soon)</button>
+            </div>
+          </div>
+        </>
+      )}
+      </section>
+
+      {/* Iconic Places - Extensible */}
       <section className="iconic-section">
         <div className="container">
           <h2 className="section-title">Iconic Places You Must Visit</h2>
           <div className="horizontal-scroll">
-            {[
-              { name: "Taj Mahal", tagline: "Symbol of eternal love" },
-              { name: "Golden Temple", tagline: "Spiritual sanctuary" },
-              { name: "Gateway of India", tagline: "Historic monument" },
-              { name: "Hawa Mahal", tagline: "Palace of winds" }
-            ].map((place, idx) => (
-              <div className="scroll-card iconic-card" key={idx}>
+            {ICONIC_PLACES_DATA.map((place) => (
+              <div className="scroll-card iconic-card" key={place.id}>
                 <div className="scroll-card-image"></div>
                 <div className="scroll-card-content">
                   <h3 className="scroll-card-name">{place.name}</h3>
@@ -304,9 +386,10 @@ const CityTemplatePage = () => {
         </div>
       </section>
 
+      {/* Food & Cafes - Extensible */}
       <section className="template-section">
         <div className="container">
-          <h2 className="section-title">Famous Food</h2>
+          <h2 className="section-title">Food & Cafes</h2>
           <div className="horizontal-scroll">
             {food.map((item) => (
               <div className="scroll-card" key={item.item_id}>
@@ -637,6 +720,17 @@ const AddPlacePage = () => {
               <div className="form-section">
                 <h3 className="form-section-title">Description</h3>
                 <textarea className="form-textarea" rows="4" placeholder="Tell us about this place..."></textarea>
+              </div>
+
+              <div className="form-section">
+                <h3 className="form-section-title">Photo Upload (Optional)</h3>
+                <div className="photo-upload-container">
+                  <input type="file" id="photo-upload" className="photo-upload-input" accept="image/*" />
+                  <label htmlFor="photo-upload" className="photo-upload-label">
+                    <span className="photo-upload-text">Choose Photo</span>
+                  </label>
+                  <p className="photo-upload-note">Photo upload is optional. You can submit without a photo.</p>
+                </div>
               </div>
 
               <div className="form-section">
