@@ -280,7 +280,6 @@ const Home = () => {
           </div>
         </>
       )}
-      </section>
 
       {/* Iconic Places - Extensible */}
       <section className="iconic-section">
