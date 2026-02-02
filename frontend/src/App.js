@@ -1,74 +1,136 @@
 import "@/App.css";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { useState } from "react";
 
-// Header Component with Hamburger Menu
+// ============================================
+// MOCK DATA STRUCTURES (Backend-Ready)
+// ============================================
+
+const CITIES_DATA = [
+  {
+    city_id: "rishikesh",
+    city_name: "Rishikesh",
+    short_description: "Yoga capital & spiritual destination",
+    long_description: "Rishikesh is a city in India's northern state of Uttarakhand, in the Himalayan foothills beside the Ganges River. The river is considered holy, and the city is renowned as a center for studying yoga and meditation.",
+    hero_image: null,
+    state: "Uttarakhand",
+    country: "India"
+  },
+  {
+    city_id: "goa",
+    city_name: "Goa",
+    short_description: "Beaches & nightlife",
+    long_description: "Goa is a state in western India with coastlines stretching along the Arabian Sea. Its long history as a Portuguese colony prior to 1961 is evident in its preserved 17th-century churches and the area's tropical spice plantations.",
+    hero_image: null,
+    state: "Goa",
+    country: "India"
+  },
+  {
+    city_id: "manali",
+    city_name: "Manali",
+    short_description: "Mountain adventures",
+    long_description: "Manali is a high-altitude Himalayan resort town in India's northern Himachal Pradesh state. It has a reputation as a backpacking center and honeymoon destination.",
+    hero_image: null,
+    state: "Himachal Pradesh",
+    country: "India"
+  },
+  {
+    city_id: "jaipur",
+    city_name: "Jaipur",
+    short_description: "Pink city heritage",
+    long_description: "Jaipur is the capital of India's Rajasthan state. It evokes the royal family that once ruled the region and that, in 1727, founded what is now called the Old City.",
+    hero_image: null,
+    state: "Rajasthan",
+    country: "India"
+  }
+];
+
+const ITEMS_DATA = [
+  // Rishikesh Places
+  { item_id: "r1", city_id: "rishikesh", title: "Laxman Jhula", type: "place", budget_type: "budget", short_description: "Iconic suspension bridge", image: null, approx_price_range: "Free", booking_url: "" },
+  { item_id: "r2", city_id: "rishikesh", title: "Beatles Ashram", type: "place", budget_type: "budget", short_description: "Historic meditation center", image: null, approx_price_range: "₹150", booking_url: "" },
+  { item_id: "r3", city_id: "rishikesh", title: "River Rafting", type: "activity", budget_type: "standard", short_description: "Thrilling water adventure", image: null, approx_price_range: "₹500-₹1500", booking_url: "" },
+  { item_id: "r4", city_id: "rishikesh", title: "Chotiwala Restaurant", type: "food", budget_type: "budget", short_description: "Famous North Indian cuisine", image: null, approx_price_range: "₹200-₹400", booking_url: "" },
+  { item_id: "r5", city_id: "rishikesh", title: "Zostel Rishikesh", type: "stay", budget_type: "budget", short_description: "Backpacker hostel", image: null, approx_price_range: "₹500-₹800/night", booking_url: "" },
+  { item_id: "r6", city_id: "rishikesh", title: "Ganga Beach Resort", type: "stay", budget_type: "premium", short_description: "Luxury riverside resort", image: null, approx_price_range: "₹5000+/night", booking_url: "" },
+  
+  // Goa
+  { item_id: "g1", city_id: "goa", title: "Baga Beach", type: "place", budget_type: "budget", short_description: "Popular beach destination", image: null, approx_price_range: "Free", booking_url: "" },
+  { item_id: "g2", city_id: "goa", title: "Water Sports", type: "activity", budget_type: "standard", short_description: "Parasailing, jet ski", image: null, approx_price_range: "₹1000-₹3000", booking_url: "" },
+  { item_id: "g3", city_id: "goa", title: "Vinayak Family Restaurant", type: "food", budget_type: "budget", short_description: "Authentic Goan seafood", image: null, approx_price_range: "₹300-₹600", booking_url: "" },
+  { item_id: "g4", city_id: "goa", title: "Backpacker Panda", type: "stay", budget_type: "budget", short_description: "Beach hostel", image: null, approx_price_range: "₹600-₹1000/night", booking_url: "" },
+  
+  // Manali
+  { item_id: "m1", city_id: "manali", title: "Rohtang Pass", type: "place", budget_type: "standard", short_description: "High mountain pass", image: null, approx_price_range: "₹500 permit", booking_url: "" },
+  { item_id: "m2", city_id: "manali", title: "Paragliding", type: "activity", budget_type: "standard", short_description: "Mountain paragliding", image: null, approx_price_range: "₹2000-₹3000", booking_url: "" },
+  { item_id: "m3", city_id: "manali", title: "Johnson's Cafe", type: "food", budget_type: "standard", short_description: "Popular cafe & bakery", image: null, approx_price_range: "₹400-₹800", booking_url: "" },
+  { item_id: "m4", city_id: "manali", title: "Zostel Manali", type: "stay", budget_type: "budget", short_description: "Mountain hostel", image: null, approx_price_range: "₹700-₹1200/night", booking_url: "" },
+  
+  // Jaipur
+  { item_id: "j1", city_id: "jaipur", title: "Hawa Mahal", type: "place", budget_type: "budget", short_description: "Palace of Winds", image: null, approx_price_range: "₹200", booking_url: "" },
+  { item_id: "j2", city_id: "jaipur", title: "City Palace Tour", type: "activity", budget_type: "standard", short_description: "Royal palace exploration", image: null, approx_price_range: "₹500-₹1000", booking_url: "" },
+  { item_id: "j3", city_id: "jaipur", title: "Laxmi Mishthan Bhandar", type: "food", budget_type: "budget", short_description: "Famous sweets & snacks", image: null, approx_price_range: "₹200-₹500", booking_url: "" },
+  { item_id: "j4", city_id: "jaipur", title: "Jaipur Inn", type: "stay", budget_type: "budget", short_description: "Heritage guesthouse", image: null, approx_price_range: "₹800-₹1500/night", booking_url: "" }
+];
+
+const TRAVEL_INFO_DATA = [
+  { from_city: "Delhi", to_city: "Rishikesh", travel_type: "bus", approx_price_range: "₹400-₹800", booking_url: "" },
+  { from_city: "Delhi", to_city: "Manali", travel_type: "bus", approx_price_range: "₹800-₹1500", booking_url: "" },
+  { from_city: "Mumbai", to_city: "Goa", travel_type: "bus", approx_price_range: "₹600-₹1200", booking_url: "" }
+];
+
+// ============================================
+// HEADER COMPONENT
+// ============================================
 const Header = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
-    <header className="header" data-testid="main-header">
-      <div className="header-container">
-        <Link to="/" className="logo" data-testid="logo">
-          <span className="logo-text">TravelCommunity</span>
-        </Link>
-        
-        {/* Desktop & Tablet Navigation */}
-        <nav className="nav desktop-nav" data-testid="main-nav">
-          <Link to="/" className="nav-link" data-testid="nav-home">Home</Link>
-          <Link to="/city-template" className="nav-link" data-testid="nav-destinations">Destinations</Link>
-          <Link to="/add-place" className="nav-link" data-testid="nav-add-place">Add a Place</Link>
-          <Link to="/how-it-works" className="nav-link" data-testid="nav-how-it-works">How It Works</Link>
-          <Link to="/about" className="nav-link" data-testid="nav-about">About</Link>
-          <Link to="/contact" className="nav-link" data-testid="nav-contact">Contact</Link>
-        </nav>
+    <>
+      <header className="header" data-testid="main-header">
+        <div className="header-container">
+          <Link to="/" className="logo" data-testid="logo">
+            <span className="logo-text">TravelCommunity</span>
+          </Link>
+          
+          <nav className="desktop-nav" data-testid="main-nav">
+            <Link to="/" className="nav-link">Home</Link>
+            <Link to="/city-template" className="nav-link">Destinations</Link>
+            <Link to="/trip-planner" className="nav-link">Complete Trip Plan</Link>
+            <Link to="/add-place" className="nav-link">Add a Place</Link>
+            <Link to="/about" className="nav-link">About</Link>
+            <Link to="/contact" className="nav-link">Contact</Link>
+          </nav>
 
-        {/* Language Selector - Desktop Only */}
-        <div className="language-selector desktop-only" data-testid="language-selector">
-          <select className="language-select" data-testid="language-select">
-            <option value="en">English</option>
-            <option value="hi">Hindi</option>
-          </select>
-        </div>
-
-        {/* Mobile Hamburger Menu */}
-        <div className="mobile-menu-trigger">
-          <button className="hamburger-btn" data-testid="hamburger-menu">
+          <button className="hamburger-btn" onClick={() => setMenuOpen(true)} data-testid="hamburger-menu">
             <span className="hamburger-icon">☰</span>
           </button>
         </div>
-      </div>
+      </header>
 
-      {/* Mobile Menu Overlay (Hidden by default - styled to look like TripAdvisor) */}
-      <div className="mobile-menu-overlay" data-testid="mobile-menu">
-        <div className="mobile-menu-header">
-          <span className="mobile-menu-close">✕</span>
+      {/* Mobile Menu Drawer */}
+      <div className={`mobile-drawer ${menuOpen ? 'open' : ''}`} data-testid="mobile-drawer">
+        <div className="mobile-drawer-header">
+          <span className="mobile-drawer-close" onClick={() => setMenuOpen(false)}>✕</span>
         </div>
-        <nav className="mobile-menu-nav">
-          <a href="#" className="mobile-menu-link mobile-menu-primary">Sign in</a>
-          <a href="#" className="mobile-menu-link mobile-menu-primary">Write a review</a>
-          <a href="#" className="mobile-menu-link mobile-menu-primary">Post photos</a>
-          <Link to="/add-place" className="mobile-menu-link mobile-menu-primary">Add a place</Link>
-          <a href="#" className="mobile-menu-link mobile-menu-primary">Travel stories</a>
-          
-          <div className="mobile-menu-divider"></div>
-          
-          <Link to="/city-template" className="mobile-menu-link">Hotels</Link>
-          <Link to="/city-template" className="mobile-menu-link">Things to Do</Link>
-          <Link to="/city-template" className="mobile-menu-link">Restaurants / Food</Link>
-          <Link to="/city-template" className="mobile-menu-link">Budget Stays</Link>
-          
-          <div className="mobile-menu-divider"></div>
-          
-          <a href="#" className="mobile-menu-link">Download App</a>
-          <a href="#" className="mobile-menu-link">Language / Region</a>
+        <nav className="mobile-drawer-nav">
+          <Link to="/" className="mobile-drawer-link" onClick={() => setMenuOpen(false)}>Home</Link>
+          <Link to="/city-template" className="mobile-drawer-link" onClick={() => setMenuOpen(false)}>Destinations</Link>
+          <Link to="/trip-planner" className="mobile-drawer-link" onClick={() => setMenuOpen(false)}>Complete Trip Plan</Link>
+          <Link to="/add-place" className="mobile-drawer-link" onClick={() => setMenuOpen(false)}>Add a Place</Link>
+          <Link to="/about" className="mobile-drawer-link" onClick={() => setMenuOpen(false)}>About</Link>
+          <Link to="/contact" className="mobile-drawer-link" onClick={() => setMenuOpen(false)}>Contact</Link>
         </nav>
       </div>
-    </header>
+      {menuOpen && <div className="mobile-drawer-overlay" onClick={() => setMenuOpen(false)}></div>}
+    </>
   );
 };
 
 // Footer Component
 const Footer = () => {
   return (
-    <footer className="footer" data-testid="main-footer">
+    <footer className="footer">
       <div className="footer-container">
         <div className="footer-section">
           <h3 className="footer-heading">TravelCommunity</h3>
@@ -93,146 +155,95 @@ const Footer = () => {
   );
 };
 
-// Homepage
+// ============================================
+// HOMEPAGE
+// ============================================
 const Home = () => {
   return (
-    <div data-testid="homepage">
+    <div className="page-container" data-testid="homepage">
       <Header />
       
       {/* Hero Section */}
-      <section className="home-hero" data-testid="hero-section">
+      <section className="home-hero">
         <div className="home-hero-content">
-          <h1 className="home-hero-title" data-testid="hero-title">
-            Plan Your Trip – One City at a Time
-          </h1>
-          <p className="home-hero-subtitle">
-            Discover places, food spots, budget stays shared by real travelers
-          </p>
+          {/* Category Row - Mobile Above Search */}
+          <div className="category-row mobile-only">
+            {['Hotels', 'Things to Do', 'Food & Cafes', 'Budget Stays'].map((cat, idx) => (
+              <Link to="/city-template" className="category-card" key={idx}>
+                <div className="category-icon">{['🏨', '🎯', '🍽️', '🏠'][idx]}</div>
+                <span className="category-name">{cat}</span>
+              </Link>
+            ))}
+          </div>
+
+          <h1 className="home-hero-title">Plan your trip in a single click</h1>
           
-          {/* Search Bar */}
-          <div className="home-search-container" data-testid="search-container">
-            <input 
-              type="text" 
-              placeholder="Search destinations, hotels, restaurants..." 
-              className="home-search-input"
-              data-testid="search-input"
-            />
-            <button className="home-search-button" data-testid="search-button">Search</button>
+          <div className="home-search-container">
+            <input type="text" placeholder="Search destinations, hotels, restaurants..." className="home-search-input" />
+            <button className="home-search-button">Search</button>
+          </div>
+
+          {/* Category Row - Desktop Below Search */}
+          <div className="category-row desktop-only">
+            {['Hotels', 'Things to Do', 'Food & Cafes', 'Budget Stays'].map((cat, idx) => (
+              <Link to="/city-template" className="category-card" key={idx}>
+                <div className="category-icon">{['🏨', '🎯', '🍽️', '🏠'][idx]}</div>
+                <span className="category-name">{cat}</span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Category Row - TripAdvisor Style */}
-      <section className="category-section" data-testid="category-section">
-        <div className="container">
-          <div className="category-row" data-testid="category-row">
-            <Link to="/city-template" className="category-card" data-testid="category-hotels">
-              <div className="category-icon">🏨</div>
-              <span className="category-name">Hotels</span>
-            </Link>
-            <Link to="/city-template" className="category-card" data-testid="category-things">
-              <div className="category-icon">🎯</div>
-              <span className="category-name">Things to Do</span>
-            </Link>
-            <Link to="/city-template" className="category-card" data-testid="category-food">
-              <div className="category-icon">🍽️</div>
-              <span className="category-name">Food & Cafes</span>
-            </Link>
-            <Link to="/city-template" className="category-card" data-testid="category-stays">
-              <div className="category-icon">🏠</div>
-              <span className="category-name">Budget Stays</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Iconic Places Slideshow */}
-      <section className="iconic-section" data-testid="iconic-section">
+      {/* Iconic Places */}
+      <section className="iconic-section">
         <div className="container">
           <h2 className="section-title">Iconic Places You Must Visit</h2>
-          <div className="iconic-carousel" data-testid="iconic-carousel">
-            <div className="iconic-card" data-testid="iconic-1">
-              <div className="iconic-image"></div>
-              <h3 className="iconic-name">Taj Mahal</h3>
-              <p className="iconic-tagline">Symbol of eternal love</p>
-            </div>
-            <div className="iconic-card" data-testid="iconic-2">
-              <div className="iconic-image"></div>
-              <h3 className="iconic-name">Golden Temple</h3>
-              <p className="iconic-tagline">Spiritual sanctuary</p>
-            </div>
-            <div className="iconic-card" data-testid="iconic-3">
-              <div className="iconic-image"></div>
-              <h3 className="iconic-name">Gateway of India</h3>
-              <p className="iconic-tagline">Historic monument</p>
-            </div>
-            <div className="iconic-card" data-testid="iconic-4">
-              <div className="iconic-image"></div>
-              <h3 className="iconic-name">Hawa Mahal</h3>
-              <p className="iconic-tagline">Palace of winds</p>
-            </div>
+          <div className="horizontal-scroll">
+            {[
+              { name: "Taj Mahal", tagline: "Symbol of eternal love" },
+              { name: "Golden Temple", tagline: "Spiritual sanctuary" },
+              { name: "Gateway of India", tagline: "Historic monument" },
+              { name: "Hawa Mahal", tagline: "Palace of winds" }
+            ].map((place, idx) => (
+              <div className="scroll-card iconic-card" key={idx}>
+                <div className="scroll-card-image"></div>
+                <div className="scroll-card-content">
+                  <h3 className="scroll-card-name">{place.name}</h3>
+                  <p className="scroll-card-description">{place.tagline}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Popular Cities - Horizontal Scroll */}
-      <section className="home-section" data-testid="popular-cities-section">
+      {/* Popular Cities */}
+      <section className="home-section">
         <div className="container">
           <h2 className="section-title">Popular Cities</h2>
-          <div className="horizontal-scroll" data-testid="cities-scroll">
-            <Link to="/city-template" className="scroll-card city-card" data-testid="city-rishikesh">
-              <div className="scroll-card-image"></div>
-              <div className="scroll-card-content">
-                <h3 className="scroll-card-name">Rishikesh</h3>
-                <p className="scroll-card-description">Yoga capital & spiritual destination</p>
-              </div>
-            </Link>
-            
-            <Link to="/city-template" className="scroll-card city-card" data-testid="city-goa">
-              <div className="scroll-card-image"></div>
-              <div className="scroll-card-content">
-                <h3 className="scroll-card-name">Goa</h3>
-                <p className="scroll-card-description">Beaches & nightlife</p>
-              </div>
-            </Link>
-            
-            <Link to="/city-template" className="scroll-card city-card" data-testid="city-manali">
-              <div className="scroll-card-image"></div>
-              <div className="scroll-card-content">
-                <h3 className="scroll-card-name">Manali</h3>
-                <p className="scroll-card-description">Mountain adventures</p>
-              </div>
-            </Link>
-            
-            <Link to="/city-template" className="scroll-card city-card" data-testid="city-jaipur">
-              <div className="scroll-card-image"></div>
-              <div className="scroll-card-content">
-                <h3 className="scroll-card-name">Jaipur</h3>
-                <p className="scroll-card-description">Pink city heritage</p>
-              </div>
-            </Link>
-
-            <Link to="/city-template" className="scroll-card city-card" data-testid="city-udaipur">
-              <div className="scroll-card-image"></div>
-              <div className="scroll-card-content">
-                <h3 className="scroll-card-name">Udaipur</h3>
-                <p className="scroll-card-description">City of lakes</p>
-              </div>
-            </Link>
+          <div className="horizontal-scroll">
+            {CITIES_DATA.map((city) => (
+              <Link to={`/city/${city.city_id}`} className="scroll-card city-card" key={city.city_id}>
+                <div className="scroll-card-image"></div>
+                <div className="scroll-card-content">
+                  <h3 className="scroll-card-name">{city.city_name}</h3>
+                  <p className="scroll-card-description">{city.short_description}</p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Community Section */}
-      <section className="home-section home-community-section" data-testid="community-section">
+      {/* Community CTA */}
+      <section className="home-section cta-section">
         <div className="container">
-          <div className="community-content">
-            <h2 className="community-title">Know a place others should visit?</h2>
-            <p className="community-description">
-              Help fellow travelers discover amazing places
-            </p>
-            <Link to="/add-place">
-              <button className="community-button" data-testid="add-place-cta">Add a Place</button>
+          <div className="cta-content">
+            <h2 className="cta-title">Plan Your Complete Trip</h2>
+            <p className="cta-description">Get personalized suggestions for places, food, and stays</p>
+            <Link to="/trip-planner">
+              <button className="cta-button">Start Planning</button>
             </Link>
           </div>
         </div>
@@ -243,181 +254,127 @@ const Home = () => {
   );
 };
 
-// City Template Page with Horizontal Scrolls
+// ============================================
+// CITY TEMPLATE PAGE
+// ============================================
 const CityTemplatePage = () => {
+  const cityId = "rishikesh"; // Mock - will be dynamic later
+  const city = CITIES_DATA.find(c => c.city_id === cityId);
+  const places = ITEMS_DATA.filter(i => i.city_id === cityId && i.type === "place");
+  const food = ITEMS_DATA.filter(i => i.city_id === cityId && i.type === "food");
+  const activities = ITEMS_DATA.filter(i => i.city_id === cityId && i.type === "activity");
+  const stays = ITEMS_DATA.filter(i => i.city_id === cityId && i.type === "stay");
+
   return (
-    <div data-testid="city-template-page">
+    <div className="page-container">
       <Header />
       
-      {/* City Hero Section */}
-      <div className="city-template-hero" data-testid="city-template-hero">
-        <div className="city-template-image-placeholder">
-          <span className="placeholder-text">City Image Here</span>
-        </div>
-        <div className="city-template-overlay">
-          <h1 className="city-template-title">City Name Here</h1>
-          <p className="city-template-subtitle">Your complete travel guide</p>
+      <div className="city-hero">
+        <div className="city-hero-image"></div>
+        <div className="city-hero-overlay">
+          <h1 className="city-hero-title">{city?.city_name}</h1>
+          <p className="city-hero-subtitle">{city?.short_description}</p>
         </div>
       </div>
 
-      {/* About the City */}
       <section className="template-section">
         <div className="container">
-          <h2 className="section-title">About This City</h2>
-          <div className="template-content-box">
-            <p className="template-placeholder-text">
-              [Placeholder paragraph about the city. This will be replaced with actual city information.]
-            </p>
+          <h2 className="section-title">About {city?.city_name}</h2>
+          <div className="content-box">
+            <p className="content-text">{city?.long_description}</p>
           </div>
         </div>
       </section>
 
-      {/* Places to Visit - Horizontal Scroll */}
       <section className="template-section gray-bg">
         <div className="container">
-          <h2 className="section-title">Places to Visit</h2>
-          <div className="horizontal-scroll" data-testid="places-scroll">
-            <Link to="/place-detail" className="scroll-card" data-testid="place-card-1">
-              <div className="scroll-card-image"></div>
-              <div className="scroll-card-content">
-                <h3 className="scroll-card-name">Place Name 1</h3>
-                <p className="scroll-card-description">Short description</p>
-                <span className="budget-tag budget-free">Free</span>
+          <h2 className="section-title">Famous Places</h2>
+          <div className="horizontal-scroll">
+            {places.map((item) => (
+              <div className="scroll-card" key={item.item_id}>
+                <div className="scroll-card-image"></div>
+                <div className="scroll-card-content">
+                  <h3 className="scroll-card-name">{item.title}</h3>
+                  <p className="scroll-card-description">{item.short_description}</p>
+                  <span className={`budget-tag budget-${item.budget_type}`}>{item.approx_price_range}</span>
+                </div>
               </div>
-            </Link>
-            
-            <Link to="/place-detail" className="scroll-card" data-testid="place-card-2">
-              <div className="scroll-card-image"></div>
-              <div className="scroll-card-content">
-                <h3 className="scroll-card-name">Place Name 2</h3>
-                <p className="scroll-card-description">Short description</p>
-                <span className="budget-tag budget-cheap">Cheap</span>
-              </div>
-            </Link>
-            
-            <Link to="/place-detail" className="scroll-card" data-testid="place-card-3">
-              <div className="scroll-card-image"></div>
-              <div className="scroll-card-content">
-                <h3 className="scroll-card-name">Place Name 3</h3>
-                <p className="scroll-card-description">Short description</p>
-                <span className="budget-tag budget-moderate">Moderate</span>
-              </div>
-            </Link>
-
-            <Link to="/place-detail" className="scroll-card" data-testid="place-card-4">
-              <div className="scroll-card-image"></div>
-              <div className="scroll-card-content">
-                <h3 className="scroll-card-name">Place Name 4</h3>
-                <p className="scroll-card-description">Short description</p>
-                <span className="budget-tag budget-cheap">Cheap</span>
-              </div>
-            </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Food & Cafes - Horizontal Scroll */}
       <section className="template-section">
         <div className="container">
-          <h2 className="section-title">Food & Cafes</h2>
-          <div className="horizontal-scroll" data-testid="food-scroll">
-            <div className="scroll-card" data-testid="food-1">
-              <div className="scroll-card-image"></div>
-              <div className="scroll-card-content">
-                <h3 className="scroll-card-name">Food Place 1</h3>
-                <p className="scroll-card-description">Description of food</p>
+          <h2 className="section-title">Famous Food</h2>
+          <div className="horizontal-scroll">
+            {food.map((item) => (
+              <div className="scroll-card" key={item.item_id}>
+                <div className="scroll-card-image"></div>
+                <div className="scroll-card-content">
+                  <h3 className="scroll-card-name">{item.title}</h3>
+                  <p className="scroll-card-description">{item.short_description}</p>
+                  <span className="scroll-card-budget">{item.approx_price_range}</span>
+                </div>
               </div>
-            </div>
-            <div className="scroll-card" data-testid="food-2">
-              <div className="scroll-card-image"></div>
-              <div className="scroll-card-content">
-                <h3 className="scroll-card-name">Food Place 2</h3>
-                <p className="scroll-card-description">Description of food</p>
-              </div>
-            </div>
-            <div className="scroll-card" data-testid="food-3">
-              <div className="scroll-card-image"></div>
-              <div className="scroll-card-content">
-                <h3 className="scroll-card-name">Food Place 3</h3>
-                <p className="scroll-card-description">Description of food</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Budget Stays - Horizontal Scroll */}
       <section className="template-section gray-bg">
         <div className="container">
-          <h2 className="section-title">Budget-Friendly Stays</h2>
-          <div className="horizontal-scroll" data-testid="stays-scroll">
-            <div className="scroll-card" data-testid="stay-1">
-              <div className="scroll-card-image"></div>
-              <div className="scroll-card-content">
-                <h3 className="scroll-card-name">Stay Name 1</h3>
-                <p className="scroll-card-budget">₹500 - ₹1000/night</p>
+          <h2 className="section-title">Things to Do</h2>
+          <div className="horizontal-scroll">
+            {activities.map((item) => (
+              <div className="scroll-card" key={item.item_id}>
+                <div className="scroll-card-image"></div>
+                <div className="scroll-card-content">
+                  <h3 className="scroll-card-name">{item.title}</h3>
+                  <p className="scroll-card-description">{item.short_description}</p>
+                  <span className="scroll-card-budget">{item.approx_price_range}</span>
+                </div>
               </div>
-            </div>
-            <div className="scroll-card" data-testid="stay-2">
-              <div className="scroll-card-image"></div>
-              <div className="scroll-card-content">
-                <h3 className="scroll-card-name">Stay Name 2</h3>
-                <p className="scroll-card-budget">₹1000 - ₹2000/night</p>
-              </div>
-            </div>
-            <div className="scroll-card" data-testid="stay-3">
-              <div className="scroll-card-image"></div>
-              <div className="scroll-card-content">
-                <h3 className="scroll-card-name">Stay Name 3</h3>
-                <p className="scroll-card-budget">₹2000 - ₹3000/night</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Hotels - Horizontal Scroll */}
       <section className="template-section">
         <div className="container">
           <h2 className="section-title">Where to Stay</h2>
-          <div className="horizontal-scroll" data-testid="hotels-scroll">
-            <div className="scroll-card" data-testid="hotel-1">
-              <div className="scroll-card-image"></div>
-              <div className="scroll-card-content">
-                <h3 className="scroll-card-name">Budget Hotel</h3>
-                <span className="hotel-type">Budget</span>
-                <p className="scroll-card-budget">₹800 - ₹1500/night</p>
+          <div className="horizontal-scroll">
+            {stays.map((item) => (
+              <div className="scroll-card" key={item.item_id}>
+                <div className="scroll-card-image"></div>
+                <div className="scroll-card-content">
+                  <h3 className="scroll-card-name">{item.title}</h3>
+                  <span className={`hotel-type type-${item.budget_type}`}>{item.budget_type}</span>
+                  <p className="scroll-card-description">{item.short_description}</p>
+                  <span className="scroll-card-budget">{item.approx_price_range}</span>
+                </div>
               </div>
-            </div>
-            <div className="scroll-card" data-testid="hotel-2">
-              <div className="scroll-card-image"></div>
-              <div className="scroll-card-content">
-                <h3 className="scroll-card-name">Standard Hotel</h3>
-                <span className="hotel-type">Standard</span>
-                <p className="scroll-card-budget">₹2000 - ₹3500/night</p>
-              </div>
-            </div>
-            <div className="scroll-card" data-testid="hotel-3">
-              <div className="scroll-card-image"></div>
-              <div className="scroll-card-content">
-                <h3 className="scroll-card-name">Luxury Hotel</h3>
-                <span className="hotel-type">Luxury</span>
-                <p className="scroll-card-budget">₹5000+/night</p>
-              </div>
-            </div>
-          </div>
-          <div className="partner-note">
-            <p>Hotel bookings will be handled by trusted third-party partners.</p>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="template-section template-cta">
+      <section className="template-section gray-bg">
+        <div className="container">
+          <h2 className="section-title">Travel to {city?.city_name}</h2>
+          <div className="travel-box">
+            <p className="travel-info">Bus from Delhi: ₹400-₹800</p>
+            <button className="travel-button">Book Bus (Coming Soon)</button>
+            <p className="travel-note">Bookings handled by third-party partners</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="template-section cta-section">
         <div className="container">
           <div className="cta-content">
-            <h2 className="cta-title">Know a place in this city?</h2>
-            <p className="cta-description">Help other travelers discover hidden gems</p>
+            <h2 className="cta-title">Know a place in {city?.city_name}?</h2>
+            <p className="cta-description">Help travelers discover hidden gems</p>
             <Link to="/add-place">
               <button className="cta-button">Add a Place</button>
             </Link>
@@ -430,24 +387,193 @@ const CityTemplatePage = () => {
   );
 };
 
-// Place Detail Template Page
-const PlaceDetailPage = () => {
+// ============================================
+// COMPLETE TRIP PLANNER PAGE (NEW)
+// ============================================
+const TripPlannerPage = () => {
+  const [step, setStep] = useState(1);
+  const [destination, setDestination] = useState("");
+  const [persons, setPersons] = useState("");
+  const [budget, setBudget] = useState("");
+
+  const showResults = step === 4;
+  const selectedCity = CITIES_DATA.find(c => c.city_id === destination);
+  const suggestedPlaces = ITEMS_DATA.filter(i => i.city_id === destination && i.type === "place");
+  const suggestedFood = ITEMS_DATA.filter(i => i.city_id === destination && i.type === "food");
+  const suggestedActivities = ITEMS_DATA.filter(i => i.city_id === destination && i.type === "activity");
+  const suggestedStays = ITEMS_DATA.filter(i => i.city_id === destination && i.type === "stay" && i.budget_type === budget);
+
   return (
-    <div data-testid="place-detail-page">
+    <div className="page-container">
       <Header />
       
-      <div className="place-detail-hero">
-        <h1 className="place-detail-title">Place Name</h1>
+      <div className="page-hero">
+        <h1 className="page-title">Complete Trip Plan</h1>
+        <p className="page-subtitle">Get personalized suggestions in 3 simple steps</p>
       </div>
 
-      <section className="place-detail-section">
+      <section className="page-section">
         <div className="container">
-          <div className="place-detail-content">
-            <h2 className="section-title">About This Place</h2>
-            <p className="place-detail-description">
-              [Short description of the place will be added here.]
-            </p>
-            <span className="budget-tag budget-free">Free</span>
+          <div className="trip-planner-container">
+            
+            {/* Step 1: Select Destination */}
+            {step === 1 && (
+              <div className="trip-step">
+                <h2 className="trip-step-title">Step 1: Select Destination</h2>
+                <div className="trip-options">
+                  {CITIES_DATA.map((city) => (
+                    <button
+                      key={city.city_id}
+                      className={`trip-option-btn ${destination === city.city_id ? 'active' : ''}`}
+                      onClick={() => setDestination(city.city_id)}
+                    >
+                      {city.city_name}
+                    </button>
+                  ))}
+                </div>
+                <button 
+                  className="trip-next-btn" 
+                  disabled={!destination}
+                  onClick={() => setStep(2)}
+                >
+                  Next
+                </button>
+              </div>
+            )}
+
+            {/* Step 2: Number of Persons */}
+            {step === 2 && (
+              <div className="trip-step">
+                <h2 className="trip-step-title">Step 2: Number of Persons</h2>
+                <div className="trip-options">
+                  {['1', '2', '3-4', '5+'].map((num) => (
+                    <button
+                      key={num}
+                      className={`trip-option-btn ${persons === num ? 'active' : ''}`}
+                      onClick={() => setPersons(num)}
+                    >
+                      {num} {num === '1' ? 'Person' : 'People'}
+                    </button>
+                  ))}
+                </div>
+                <div className="trip-nav-btns">
+                  <button className="trip-back-btn" onClick={() => setStep(1)}>Back</button>
+                  <button 
+                    className="trip-next-btn" 
+                    disabled={!persons}
+                    onClick={() => setStep(3)}
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Step 3: Budget */}
+            {step === 3 && (
+              <div className="trip-step">
+                <h2 className="trip-step-title">Step 3: Select Budget</h2>
+                <div className="trip-options">
+                  {['budget', 'standard', 'premium'].map((b) => (
+                    <button
+                      key={b}
+                      className={`trip-option-btn ${budget === b ? 'active' : ''}`}
+                      onClick={() => setBudget(b)}
+                    >
+                      {b.charAt(0).toUpperCase() + b.slice(1)}
+                    </button>
+                  ))}
+                </div>
+                <div className="trip-nav-btns">
+                  <button className="trip-back-btn" onClick={() => setStep(2)}>Back</button>
+                  <button 
+                    className="trip-next-btn" 
+                    disabled={!budget}
+                    onClick={() => setStep(4)}
+                  >
+                    Get Plan
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Results */}
+            {showResults && (
+              <div className="trip-results">
+                <h2 className="trip-results-title">Your Trip Plan to {selectedCity?.city_name}</h2>
+                <p className="trip-results-subtitle">{persons} {persons === '1' ? 'Person' : 'People'} • {budget.charAt(0).toUpperCase() + budget.slice(1)} Budget</p>
+
+                <div className="trip-results-section">
+                  <h3 className="trip-results-heading">Suggested Places</h3>
+                  <div className="horizontal-scroll">
+                    {suggestedPlaces.map((item) => (
+                      <div className="scroll-card" key={item.item_id}>
+                        <div className="scroll-card-image"></div>
+                        <div className="scroll-card-content">
+                          <h3 className="scroll-card-name">{item.title}</h3>
+                          <p className="scroll-card-description">{item.short_description}</p>
+                          <span className="scroll-card-budget">{item.approx_price_range}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="trip-results-section">
+                  <h3 className="trip-results-heading">Food Suggestions</h3>
+                  <div className="horizontal-scroll">
+                    {suggestedFood.map((item) => (
+                      <div className="scroll-card" key={item.item_id}>
+                        <div className="scroll-card-image"></div>
+                        <div className="scroll-card-content">
+                          <h3 className="scroll-card-name">{item.title}</h3>
+                          <p className="scroll-card-description">{item.short_description}</p>
+                          <span className="scroll-card-budget">{item.approx_price_range}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="trip-results-section">
+                  <h3 className="trip-results-heading">Recommended Stays</h3>
+                  <div className="horizontal-scroll">
+                    {suggestedStays.length > 0 ? suggestedStays.map((item) => (
+                      <div className="scroll-card" key={item.item_id}>
+                        <div className="scroll-card-image"></div>
+                        <div className="scroll-card-content">
+                          <h3 className="scroll-card-name">{item.title}</h3>
+                          <p className="scroll-card-description">{item.short_description}</p>
+                          <span className="scroll-card-budget">{item.approx_price_range}</span>
+                        </div>
+                      </div>
+                    )) : <p className="no-results">No stays available for this budget</p>}
+                  </div>
+                </div>
+
+                <div className="trip-booking-section">
+                  <h3 className="trip-results-heading">Book Your Travel</h3>
+                  <div className="trip-booking-cards">
+                    <div className="trip-booking-card">
+                      <h4>Bus Travel</h4>
+                      <p>Approx: ₹400-₹800</p>
+                      <button className="trip-booking-btn">Book Bus</button>
+                    </div>
+                    <div className="trip-booking-card">
+                      <h4>Hotel Booking</h4>
+                      <p>Based on your budget</p>
+                      <button className="trip-booking-btn">Book Hotel</button>
+                    </div>
+                  </div>
+                  <p className="trip-note">Costs are approximate. Bookings handled by third-party partners.</p>
+                </div>
+
+                <button className="trip-reset-btn" onClick={() => { setStep(1); setDestination(""); setPersons(""); setBudget(""); }}>
+                  Plan Another Trip
+                </button>
+              </div>
+            )}
+
           </div>
         </div>
       </section>
@@ -457,10 +583,12 @@ const PlaceDetailPage = () => {
   );
 };
 
-// Add a Place Page
+// ============================================
+// ADD A PLACE PAGE
+// ============================================
 const AddPlacePage = () => {
   return (
-    <div data-testid="add-place-page">
+    <div className="page-container">
       <Header />
       
       <div className="page-hero">
@@ -470,23 +598,23 @@ const AddPlacePage = () => {
 
       <section className="page-section">
         <div className="container">
-          <div className="add-place-form-container">
-            <form className="add-place-form">
+          <div className="form-container">
+            <form className="place-form">
               
               <div className="form-section">
-                <h3 className="form-section-title">What are you adding?</h3>
+                <h3 className="form-section-title">Place Type</h3>
                 <div className="radio-group">
                   <label className="radio-label">
                     <input type="radio" name="place-type" className="radio-input" />
-                    <span className="radio-text">Place to Visit</span>
+                    <span>Place to Visit</span>
                   </label>
                   <label className="radio-label">
                     <input type="radio" name="place-type" className="radio-input" />
-                    <span className="radio-text">Food / Cafe</span>
+                    <span>Food / Cafe</span>
                   </label>
                   <label className="radio-label">
                     <input type="radio" name="place-type" className="radio-input" />
-                    <span className="radio-text">Budget Stay</span>
+                    <span>Budget Stay</span>
                   </label>
                 </div>
               </div>
@@ -495,9 +623,9 @@ const AddPlacePage = () => {
                 <h3 className="form-section-title">Select City</h3>
                 <select className="form-select">
                   <option value="">Choose a city...</option>
-                  <option value="rishikesh">Rishikesh</option>
-                  <option value="goa">Goa</option>
-                  <option value="manali">Manali</option>
+                  {CITIES_DATA.map((city) => (
+                    <option key={city.city_id} value={city.city_id}>{city.city_name}</option>
+                  ))}
                 </select>
               </div>
 
@@ -516,25 +644,23 @@ const AddPlacePage = () => {
                 <div className="radio-group radio-group-horizontal">
                   <label className="radio-label">
                     <input type="radio" name="budget-type" className="radio-input" />
-                    <span className="radio-text">Free</span>
+                    <span>Budget</span>
                   </label>
                   <label className="radio-label">
                     <input type="radio" name="budget-type" className="radio-input" />
-                    <span className="radio-text">Cheap</span>
+                    <span>Standard</span>
                   </label>
                   <label className="radio-label">
                     <input type="radio" name="budget-type" className="radio-input" />
-                    <span className="radio-text">Moderate</span>
+                    <span>Premium</span>
                   </label>
                 </div>
               </div>
 
-              <div className="form-section">
-                <button type="button" className="form-submit">Submit for Review</button>
-              </div>
+              <button type="button" className="form-submit">Submit for Review</button>
 
               <div className="thank-you-message">
-                <p className="thank-you-text">Thanks for contributing! We will review and add it soon.</p>
+                <p>Thanks for contributing! We will review and add it soon.</p>
               </div>
 
             </form>
@@ -547,114 +673,51 @@ const AddPlacePage = () => {
   );
 };
 
-// How It Works Page
-const HowItWorksPage = () => {
-  return (
-    <div data-testid="how-it-works-page">
-      <Header />
-      
-      <div className="page-hero">
-        <h1 className="page-title">How It Works</h1>
+// About & Contact Pages
+const AboutPage = () => (
+  <div className="page-container">
+    <Header />
+    <div className="page-hero">
+      <h1 className="page-title">About Us</h1>
+    </div>
+    <section className="page-section">
+      <div className="container">
+        <div className="content-box">
+          <p className="content-text-large">
+            This platform helps travelers discover places through community-shared experiences.
+            We believe in authentic travel recommendations from real people.
+          </p>
+        </div>
       </div>
+    </section>
+    <Footer />
+  </div>
+);
 
-      <section className="page-section">
-        <div className="container">
-          <div className="how-it-works-detailed">
-            <div className="how-step">
-              <div className="how-step-number">1</div>
-              <div className="how-step-content">
-                <h2 className="how-step-title">Choose a city</h2>
-                <p className="how-step-description">
-                  Browse destinations and select the city you want to explore.
-                </p>
-              </div>
-            </div>
-
-            <div className="how-step">
-              <div className="how-step-number">2</div>
-              <div className="how-step-content">
-                <h2 className="how-step-title">Explore places, food, and stays</h2>
-                <p className="how-step-description">
-                  Discover recommendations shared by real travelers.
-                </p>
-              </div>
-            </div>
-
-            <div className="how-step">
-              <div className="how-step-number">3</div>
-              <div className="how-step-content">
-                <h2 className="how-step-title">Share your experience</h2>
-                <p className="how-step-description">
-                  Add places to help other travelers discover amazing experiences.
-                </p>
-              </div>
+const ContactPage = () => (
+  <div className="page-container">
+    <Header />
+    <div className="page-hero">
+      <h1 className="page-title">Contact Us</h1>
+    </div>
+    <section className="page-section">
+      <div className="container">
+        <div className="content-box">
+          <p className="content-text">For suggestions or queries, please contact us.</p>
+          <div className="contact-info">
+            <div className="contact-item">
+              <h3>Email</h3>
+              <p>hello@travelcommunity.com</p>
             </div>
           </div>
         </div>
-      </section>
-
-      <Footer />
-    </div>
-  );
-};
-
-// About Page
-const AboutPage = () => {
-  return (
-    <div data-testid="about-page">
-      <Header />
-      
-      <div className="page-hero">
-        <h1 className="page-title">About Us</h1>
       </div>
+    </section>
+    <Footer />
+  </div>
+);
 
-      <section className="page-section">
-        <div className="container">
-          <div className="about-content-detailed">
-            <p className="about-text-large">
-              This platform helps travelers discover places through community-shared experiences.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <Footer />
-    </div>
-  );
-};
-
-// Contact Page
-const ContactPage = () => {
-  return (
-    <div data-testid="contact-page">
-      <Header />
-      
-      <div className="page-hero">
-        <h1 className="page-title">Contact Us</h1>
-      </div>
-
-      <section className="page-section">
-        <div className="container">
-          <div className="contact-content-simple">
-            <p className="contact-text-simple">
-              For suggestions or queries, please contact us.
-            </p>
-            <div className="contact-details-simple">
-              <div className="contact-item-simple">
-                <h3 className="contact-label-simple">Email</h3>
-                <p className="contact-value-simple">hello@travelcommunity.com</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <Footer />
-    </div>
-  );
-};
-
-// Main App Component
+// Main App
 function App() {
   return (
     <div className="App">
@@ -662,9 +725,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/city-template" element={<CityTemplatePage />} />
-          <Route path="/place-detail" element={<PlaceDetailPage />} />
+          <Route path="/city/:cityId" element={<CityTemplatePage />} />
+          <Route path="/trip-planner" element={<TripPlannerPage />} />
           <Route path="/add-place" element={<AddPlacePage />} />
-          <Route path="/how-it-works" element={<HowItWorksPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
