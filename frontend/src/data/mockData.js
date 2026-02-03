@@ -54,7 +54,7 @@ export const CITIES_DATA = [
     city_name: "Rishikesh",
     short_description: "Yoga capital & spiritual destination",
     long_description: "Rishikesh is a city in India's northern state of Uttarakhand, in the Himalayan foothills beside the Ganges River. The river is considered holy, and the city is renowned as a center for studying yoga and meditation.",
-    hero_image: "https://images.unsplash.com/photo-1585136917228-c5c0e6e99e0b?w=1920&q=80",
+    hero_image: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?w=1920&q=80",
     state: "Uttarakhand",
     country: "India",
     weather: { temp: "25°C", condition: "Pleasant", season: "Winter" },
@@ -142,7 +142,7 @@ export const ICONIC_PLACES_DATA = [
 
 export const COMMUNITY_PHOTOS_DATA = [
   { id: "cp1", username: "traveler_raj", photo: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=400&q=80", caption: "Sunset at Goa beach" },
-  { id: "cp2", username: "wanderlust_priya", photo: "https://images.unsplash.com/photo-1585136917228-c5c0e6e99e0b?w=400&q=80", caption: "Rishikesh rafting adventure" },
+  { id: "cp2", username: "wanderlust_priya", photo: "https://images.unsplash.com/photo-1504276048855-f3d60e69632f?w=400&q=80", caption: "Rishikesh rafting adventure" },
   { id: "cp3", username: "explorer_amit", photo: "https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=400&q=80", caption: "Manali snow views" },
   { id: "cp4", username: "foodie_neha", photo: "https://images.unsplash.com/photo-1567337710282-00832b415979?w=400&q=80", caption: "Street food in Jaipur" },
   { id: "cp5", username: "mountain_lover", photo: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80", caption: "Himalayan sunrise" }

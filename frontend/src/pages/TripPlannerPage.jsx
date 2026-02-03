@@ -207,7 +207,7 @@ const TripPlannerPage = () => {
                 </div>
 
                 <div className="trip-results-section">
-                  <h3 className="trip-results-heading">Recommended Stays ({budget})</h3>
+                  <h3 className="trip-results-heading">Recommended Stays ({budget.charAt(0).toUpperCase() + budget.slice(1)})</h3>
                   <div className="horizontal-scroll">
                     {suggestedStays.length > 0 ? suggestedStays.map((item) => (
                       <ScrollCard
