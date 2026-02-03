@@ -353,30 +353,30 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Popular Cities */}
+      {/* Popular Cities - No Direct Links */}
       <section className="home-section">
         <div className="container">
-          <h2 className="section-title">Popular Cities</h2>
+          <h2 className="section-title">Popular Destinations</h2>
           <div className="horizontal-scroll">
             {CITIES_DATA.map((city) => (
-              <Link to={`/city/${city.city_id}`} className="scroll-card city-card" key={city.city_id}>
+              <div className="scroll-card city-card" key={city.city_id} data-testid={`city-${city.city_id}`}>
                 <div className="scroll-card-image"></div>
                 <div className="scroll-card-content">
                   <h3 className="scroll-card-name">{city.city_name}</h3>
                   <p className="scroll-card-description">{city.short_description}</p>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Community CTA */}
+      {/* Main CTA */}
       <section className="home-section cta-section">
         <div className="container">
           <div className="cta-content">
-            <h2 className="cta-title">Plan Your Complete Trip</h2>
-            <p className="cta-description">Get personalized suggestions for places, food, and stays</p>
+            <h2 className="cta-title">Plan your trip in a single click</h2>
+            <p className="cta-description">Get personalized suggestions for places, food, and stays based on your preferences</p>
             <Link to="/trip-planner">
               <button className="cta-button">Start Planning</button>
             </Link>
