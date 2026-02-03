@@ -122,6 +122,13 @@ const COMMUNITY_PHOTOS_DATA = [
   { id: "cp5", username: "mountain_lover", photo: null, caption: "Himalayan sunrise" }
 ];
 
+const BACKGROUND_IMAGES = [
+  { id: 1, type: "mountains", gradient: "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))" },
+  { id: 2, type: "beach", gradient: "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))" },
+  { id: 3, type: "city", gradient: "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))" },
+  { id: 4, type: "forest", gradient: "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3))" }
+];
+
 const TRAVEL_INFO_DATA = [
   { from_city: "Delhi", to_city: "Rishikesh", travel_type: "bus", approx_price_range: "₹400-₹800", booking_url: "" },
   { from_city: "Delhi", to_city: "Manali", travel_type: "bus", approx_price_range: "₹800-₹1500", booking_url: "" },
