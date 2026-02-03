@@ -8,21 +8,24 @@
     "ui_bugs": [
       {
         "component": "Community Photos Section",
-        "issue": "One community photo card (@wanderlust_priya) shows gray placeholder instead of image - may be slow loading from Unsplash",
+        "issue": "Community photo for @wanderlust_priya shows gray placeholder - Unsplash URL returns 404",
         "selector": "[data-testid='community-photo-cp2']",
-        "priority": "LOW"
+        "priority": "MEDIUM",
+        "root_cause": "Broken Unsplash URL: photo-1585136917228-c5c0e6e99e0b returns 404"
       },
       {
         "component": "Popular Destinations - Rishikesh Card",
-        "issue": "Rishikesh city card shows gray placeholder instead of hero image",
+        "issue": "Rishikesh city card shows gray placeholder - same broken Unsplash URL",
         "selector": "[data-testid='city-rishikesh']",
-        "priority": "LOW"
+        "priority": "MEDIUM",
+        "root_cause": "Broken Unsplash URL: photo-1585136917228-c5c0e6e99e0b returns 404"
       },
       {
         "component": "Destination Page - Rishikesh Hero",
-        "issue": "Rishikesh destination page hero shows gray background instead of hero image",
+        "issue": "Rishikesh destination page hero shows gray background - same broken Unsplash URL",
         "selector": ".city-hero",
-        "priority": "MEDIUM"
+        "priority": "MEDIUM",
+        "root_cause": "Broken Unsplash URL: photo-1585136917228-c5c0e6e99e0b returns 404"
       },
       {
         "component": "Trip Planner Results",
