@@ -30,7 +30,11 @@ const CITIES_DATA = [
     long_description: "Rishikesh is a city in India's northern state of Uttarakhand, in the Himalayan foothills beside the Ganges River. The river is considered holy, and the city is renowned as a center for studying yoga and meditation.",
     hero_image: null,
     state: "Uttarakhand",
-    country: "India"
+    country: "India",
+    weather: { temp: "25°C", condition: "Pleasant", season: "Winter" },
+    best_time: "September to November, February to April",
+    lat: 30.0869,
+    lng: 78.2676
   },
   {
     city_id: "goa",
@@ -39,7 +43,11 @@ const CITIES_DATA = [
     long_description: "Goa is a state in western India with coastlines stretching along the Arabian Sea. Its long history as a Portuguese colony prior to 1961 is evident in its preserved 17th-century churches and the area's tropical spice plantations.",
     hero_image: null,
     state: "Goa",
-    country: "India"
+    country: "India",
+    weather: { temp: "28°C", condition: "Sunny", season: "Winter" },
+    best_time: "November to February",
+    lat: 15.2993,
+    lng: 74.1240
   },
   {
     city_id: "manali",
@@ -48,7 +56,11 @@ const CITIES_DATA = [
     long_description: "Manali is a high-altitude Himalayan resort town in India's northern Himachal Pradesh state. It has a reputation as a backpacking center and honeymoon destination.",
     hero_image: null,
     state: "Himachal Pradesh",
-    country: "India"
+    country: "India",
+    weather: { temp: "10°C", condition: "Cold", season: "Winter" },
+    best_time: "October to June",
+    lat: 32.2432,
+    lng: 77.1892
   },
   {
     city_id: "jaipur",
@@ -57,7 +69,11 @@ const CITIES_DATA = [
     long_description: "Jaipur is the capital of India's Rajasthan state. It evokes the royal family that once ruled the region and that, in 1727, founded what is now called the Old City.",
     hero_image: null,
     state: "Rajasthan",
-    country: "India"
+    country: "India",
+    weather: { temp: "22°C", condition: "Clear", season: "Winter" },
+    best_time: "November to February",
+    lat: 26.9124,
+    lng: 75.7873
   }
 ];
 
