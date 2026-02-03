@@ -390,11 +390,11 @@ const Home = () => {
 };
 
 // ============================================
-// CITY TEMPLATE PAGE
+// DESTINATION PAGE (Dynamic, Result-Only)
 // ============================================
-const CityTemplatePage = () => {
-  const cityId = "rishikesh"; // Mock - will be dynamic later
-  const city = CITIES_DATA.find(c => c.city_id === cityId);
+const DestinationPage = () => {
+  const { cityId } = window.location.pathname.split('/').pop() ? { cityId: window.location.pathname.split('/').pop() } : { cityId: "rishikesh" };
+  const city = CITIES_DATA.find(c => c.city_id === cityId) || CITIES_DATA[0];
   const places = ITEMS_DATA.filter(i => i.city_id === cityId && i.type === "place");
   const food = ITEMS_DATA.filter(i => i.city_id === cityId && i.type === "food");
   const activities = ITEMS_DATA.filter(i => i.city_id === cityId && i.type === "activity");
@@ -404,6 +404,7 @@ const CityTemplatePage = () => {
     <div className="page-container">
       <Header />
       
+      {/* City Hero */}
       <div className="city-hero">
         <div className="city-hero-image"></div>
         <div className="city-hero-overlay">
@@ -412,7 +413,31 @@ const CityTemplatePage = () => {
         </div>
       </div>
 
+      {/* Weather & Best Time */}
       <section className="template-section">
+        <div className="container">
+          <div className="info-cards-grid">
+            <div className="info-card weather-card">
+              <h3 className="info-card-title">Current Weather</h3>
+              <div className="weather-content">
+                <div className="weather-temp">{city?.weather?.temp}</div>
+                <div className="weather-condition">{city?.weather?.condition}</div>
+                <div className="weather-season">Season: {city?.weather?.season}</div>
+              </div>
+              <p className="info-note">Weather data placeholder - will update with API</p>
+            </div>
+            
+            <div className="info-card best-time-card">
+              <h3 className="info-card-title">Best Time to Visit</h3>
+              <p className="best-time-text">{city?.best_time}</p>
+              <p className="info-note">Plan your visit during these months for the best experience</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About */}
+      <section className="template-section gray-bg">
         <div className="container">
           <h2 className="section-title">About {city?.city_name}</h2>
           <div className="content-box">
@@ -421,9 +446,10 @@ const CityTemplatePage = () => {
         </div>
       </section>
 
-      <section className="template-section gray-bg">
+      {/* Places to Visit */}
+      <section className="template-section">
         <div className="container">
-          <h2 className="section-title">Famous Places</h2>
+          <h2 className="section-title">Places to Visit</h2>
           <div className="horizontal-scroll">
             {places.map((item) => (
               <div className="scroll-card" key={item.item_id}>
@@ -439,8 +465,8 @@ const CityTemplatePage = () => {
         </div>
       </section>
 
-      {/* Food & Cafes - Extensible */}
-      <section className="template-section">
+      {/* Food & Cafes */}
+      <section className="template-section gray-bg">
         <div className="container">
           <h2 className="section-title">Food & Cafes</h2>
           <div className="horizontal-scroll">
@@ -458,7 +484,8 @@ const CityTemplatePage = () => {
         </div>
       </section>
 
-      <section className="template-section gray-bg">
+      {/* Things to Do */}
+      <section className="template-section">
         <div className="container">
           <h2 className="section-title">Things to Do</h2>
           <div className="horizontal-scroll">
@@ -476,7 +503,8 @@ const CityTemplatePage = () => {
         </div>
       </section>
 
-      <section className="template-section">
+      {/* Hotels & Stays */}
+      <section className="template-section gray-bg">
         <div className="container">
           <h2 className="section-title">Where to Stay</h2>
           <div className="horizontal-scroll">
@@ -495,17 +523,36 @@ const CityTemplatePage = () => {
         </div>
       </section>
 
-      <section className="template-section gray-bg">
+      {/* Map Section */}
+      <section className="template-section">
         <div className="container">
-          <h2 className="section-title">Travel to {city?.city_name}</h2>
-          <div className="travel-box">
-            <p className="travel-info">Bus from Delhi: ₹400-₹800</p>
-            <button className="travel-button">Book Bus (Coming Soon)</button>
-            <p className="travel-note">Bookings handled by third-party partners</p>
+          <h2 className="section-title">City Map</h2>
+          <div className="map-placeholder-container">
+            <div className="map-placeholder">
+              <div className="map-icon">📍</div>
+              <p className="map-placeholder-text">Interactive map coming soon</p>
+              <p className="map-note">OpenStreetMap + Leaflet integration will be added with API setup</p>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* Travel Info */}
+      <section className="template-section gray-bg">
+        <div className="container">
+          <h2 className="section-title">Travel to {city?.city_name}</h2>
+          <div className="travel-box">
+            <p className="travel-info">Travel options available via bus and train</p>
+            <div className="travel-note-box">
+              <p><strong>By Bus:</strong> Multiple operators available from major cities</p>
+              <p><strong>By Train:</strong> Well connected to nearest railway station</p>
+              <p className="travel-booking-note">Booking integration coming soon with third-party partners</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
       <section className="template-section cta-section">
         <div className="container">
           <div className="cta-content">
