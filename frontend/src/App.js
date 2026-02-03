@@ -217,41 +217,72 @@ const Footer = () => {
 const Home = () => {
   const [heroText, setHeroText] = useState("");
   const [showSignupModal, setShowSignupModal] = useState(false);
+  const [currentBgIndex, setCurrentBgIndex] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const randomText = HERO_TEXTS[Math.floor(Math.random() * HERO_TEXTS.length)];
     setHeroText(randomText);
+    
+    // Background slideshow
+    const interval = setInterval(() => {
+      setCurrentBgIndex((prev) => (prev + 1) % BACKGROUND_IMAGES.length);
+    }, 5000);
+    
+    return () => clearInterval(interval);
   }, []);
 
   const scrollToSearch = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      // Will redirect to search results or destination page
+      const city = CITIES_DATA.find(c => 
+        c.city_name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      if (city) {
+        window.location.href = `/destination/${city.city_id}`;
+      }
+    }
+  };
+
   return (
     <div className="page-container" data-testid="homepage">
       <Header />
       
-      {/* Hero Section */}
+      {/* Hero Section with Background Slideshow */}
       <section className="home-hero">
+        {/* Background Slideshow */}
+        <div className="hero-background-slideshow">
+          {BACKGROUND_IMAGES.map((img, index) => (
+            <div
+              key={img.id}
+              className={`hero-bg-slide ${index === currentBgIndex ? 'active' : ''} bg-${img.type}`}
+              style={{ background: img.gradient }}
+            ></div>
+          ))}
+        </div>
+        
         <div className="home-hero-content">
-          {/* Category Row - Mobile Above Search */}
-          <div className="category-row mobile-only">
-            {['Hotels', 'Things to Do', 'Food & Cafes'].map((cat, idx) => (
-              <button onClick={scrollToSearch} className="category-card" key={idx}>
-                <span className="category-name">{cat}</span>
-              </button>
-            ))}
-          </div>
-
           <h1 className="home-hero-title">{heroText}</h1>
           
-          <div className="home-search-container">
-            <input type="text" placeholder="Search destinations, hotels, restaurants..." className="home-search-input" />
-            <button className="home-search-button">Search</button>
-          </div>
+          {/* Search Bar - Always here on desktop, always above categories on mobile */}
+          <form onSubmit={handleSearch} className="home-search-container">
+            <input 
+              type="text" 
+              placeholder="Search destinations, hotels, restaurants..." 
+              className="home-search-input"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button type="submit" className="home-search-button">Search</button>
+          </form>
 
-          {/* Category Row - Desktop Below Search */}
-          <div className="category-row desktop-only">
+          {/* Category Row - Desktop Below Search, Mobile Below Search */}
+          <div className="category-row">
             {['Hotels', 'Things to Do', 'Food & Cafes'].map((cat, idx) => (
               <button onClick={scrollToSearch} className="category-card" key={idx}>
                 <span className="category-name">{cat}</span>
