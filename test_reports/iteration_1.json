@@ -38,7 +38,7 @@
     "/app/test_reports/iteration_1.json"
   ],
   "action_items": [
-    "Check Rishikesh hero_image URL in mockData.js - may be broken or slow loading",
+    "CRITICAL: Fix broken Unsplash image URL (photo-1585136917228-c5c0e6e99e0b) in mockData.js - returns 404. Used for Rishikesh hero_image and wanderlust_priya community photo",
     "Fix Trip Planner results subtitle to show 'Budget' instead of 'Budget Budget'"
   ],
   "critical_code_review_comments": [
