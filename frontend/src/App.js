@@ -918,8 +918,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/city-template" element={<CityTemplatePage />} />
-          <Route path="/city/:cityId" element={<CityTemplatePage />} />
+          <Route path="/city-template" element={<DestinationPage />} />
+          <Route path="/city/:cityId" element={<DestinationPage />} />
+          <Route path="/destination/:cityId" element={<DestinationPage />} />
           <Route path="/trip-planner" element={<TripPlannerPage />} />
           <Route path="/add-place" element={<AddPlacePage />} />
           <Route path="/about" element={<AboutPage />} />
